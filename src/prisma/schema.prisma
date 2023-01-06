@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      =  env("DATABASE_URL")
+ 
+}
+
+model Student {
+  sid         String       @id @default(uuid())
+  email       String       @unique
+  username    String       @unique
+  password    String
+  role        ROLE         @default(STUDENT)
+  isEnabled   Boolean      @default(false)
+  isVerified  Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  courses     Course[]
+  submissions Submission[]
+
+  @@index([sid])
+}
+
+model faculty {
+  fid       String   @id @default(uuid())
+  facultyId String   @unique
+  firstName String
+  lastName  String
+  role      ROLE     @default(FACULTY)
+  createdAt DateTime @default(now())
+  password  String
+  isAdmin   Boolean  @default(false)
+  courses   Course[]
+
+  @@index([fid])
+}
+
+model Course {
+  courseId           String              @id @default(uuid())
+  major              String              @default("Computer Science")
+  coursename         String              @unique
+  academicyear       String
+  academicterm       String
+  createdAt          DateTime            @default(now())
+  accessCode         String              @unique @default(uuid())
+  students           Student[]
+  instructor         faculty             @relation(fields: [instructorId], references: [fid])
+  activities         Activity[]
+  learningObjectives LearningObjective[]
+  instructorId       String
+
+  @@index([courseId])
+}
+
+model LearningObjective {
+  learningObjId String    @id @default(uuid())
+  description   String
+  course        Course?   @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+  courseId      String?
+  activity      Activity? @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
+  activityId    String?
+
+  @@index([learningObjId])
+}
+
+model Activity {
+  activityId         String              @id @default(uuid())
+  topic              String              @unique
+  points             Int
+  numofattempts      Int
+  availablefrom      DateTime            @default(now())
+  availableto        DateTime
+  course             Course              @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+  courseId           String
+  learningObjectives LearningObjective[]
+  codingActivity     CodingActivity?
+
+  @@index([activityId])
+}
+
+model CodingActivity {
+  codingactivityId String         @id @default(uuid())
+  question         String              @unique
+  language         ProgrammingLanguage
+  submissions      Submission[]
+  actitvity        Activity            @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
+  activityId       String              @unique
+  testCases        String
+  skeletonCode     String              @db.VarChar(1000)
+}
+
+model Submission {
+  submissionId             String         @id @default(uuid())
+  sumbittedAt              DateTime       @default(now())
+  score                    String         @db.VarChar(5000)
+  student                  Student        @relation(fields: [studentid], references: [sid], onDelete: Cascade)
+  studentid                String
+  sourceCode               String         @db.VarChar(5000)
+  codingActitvySubmissions CodingActivity @relation(fields: [codingActivityId], references: [codingactivityId], onDelete: Cascade)
+  codingActivityId         String
+
+  @@index([submissionId])
+}
+
+enum ROLE {
+  STUDENT
+  FACULTY
+}
+
+enum ProgrammingLanguage {
+  JAVA
+  PYTHON
+}
+
+// Relationships => {
+// * A Student can take many courses, Many courses can be taken by many students (M - M) -
+// * A Student can have many submissions, Many submission can belong to only one student (1 - M) - 
+// * A Faculty can teach many courses, Many courses can be taught by one faculty (1 - M) - 
+// * A Course can have many activities, Many activities can be linked to one course (1- M) - 
+// * A Course can have many LO's, Many LO's can be linked one course ( 1 - M) -
+// * An Activity can have many LO's, Many LO's can be linked to an activity (1 - M) -
+// * An Activity can have one codingActivity, One codingActivity can be linked to on activity (1 - 1) -
+// * A codingActivity can have many submissions, Many submission can be linked to a codingActivity (1 - M )
+// }

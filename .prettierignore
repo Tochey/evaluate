@@ -1,0 +1,5 @@
+.next
+dist
+build
+node_modules
+infra-as-code/cdk.out

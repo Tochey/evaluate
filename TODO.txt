@@ -1,0 +1,30 @@
+Always check this before you start work on the repo.
+PRIORITY RANKS FROM TOP.
+
+Hero :
+*(working on) Online web editor implementation. Look into libraries like code mirror (https://codemirror.net/try/) - done
+* login page v1
+
+Tochi: 
+* clean up/validate auth flow --done
+* Write rce algorithm and routes --done
+* add test case feature to rce --done
+* calculate student score from test case --done
+* ui run_code / grade_code feature --done
+* login page v1 --done
+* figure out env situation with aws amplify --done 
+* Refractor/clean up code
+* figure out render patterns for long term (ssr, get static props etc)
+* refresh user access tokens - necessary for uninterupted workflows
+* Explore gravatar for user profile pictures
+* refer to leetcode and hackerrank for better editor experience
+* build out faculty side
+* ssr cookie to persist info ( user's code and preferences)
+* write testRunner to /tmp dir in dockerfile then copy to dir on every subsequent use case
+
+Backlog
+add allowed domains for cookie 
+making custom code mirror theme : https://uiwjs.github.io/react-codemirror/#/theme/editor/single
+
+NOTE: 
+removed script "prepare": "husky install" from package.json, it was failing the amplify build.

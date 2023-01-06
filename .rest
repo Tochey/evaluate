@@ -1,0 +1,189 @@
+@hostname = http://localhost:3000/
+# https://main.d36cdjokntdrty.amplifyapp.com/
+# http://localhost:3000/
+
+# --- Authentication ---
+GET {{hostname}}/api/auth/me
+Cookie: evaluate=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImQ3MGZkYWE4LTFhYTgtNGQ5MS1iOTk1LTJiYzYyYTY4ZjdjOCIsInJvbGUiOiJTVFVERU5UIiwiaWF0IjoxNjczMDQ1NTY3LCJleHAiOjE2NzMzMDQ3Njd9.yTrX_fsLXEwqcnlasPPh_JqIR6yrHiVafo70-psLQTA; Max-Age=604800; Path=/; SameSite=Strict
+
+###
+POST  {{hostname}}/api/ops/superuser/createFacultyCredentials
+Content-Type: application/json
+
+{
+    "facultyId" : "1234",
+    "firstName" : "Fatema",
+    "lastName" : "Nafa",
+    "password" : "fnafa123"
+}
+
+###
+POST  {{hostname}}/api/auth/faculty/login
+Content-Type: application/json
+
+{
+   "facultyId" : "1234",
+    "password" : "fnafa"
+}
+
+###
+
+POST  {{hostname}}/api/auth/student/signup
+Content-Type: application/json
+
+{
+   "username" : "Tochi Amanze",
+    "email" : "tdev@salemstate.edu",
+    "password" : "dev"
+}
+
+###
+POST  {{hostname}}/api/auth/student/login
+Content-Type: application/json
+
+{
+   "email" : "tochi@salemstate.edu",
+    "password" : "tochi123"
+}
+
+
+###
+# --- Authentication ---
+# --- Operations --- 
+
+# --- Course ---
+GET  {{hostname}}/api/ops/course/read
+
+###
+GET  {{hostname}}/api/ops/course/read/2463eff2-93d1-4b77-98a0-aa6a273f9aa9
+###
+DELETE   {{hostname}}/api/ops/course/delete
+
+###
+DELETE   {{hostname}}/api/ops/course/delete/b74db85d-7e6d-4de6-b90c-a9eab16d4240
+
+###
+POST  {{hostname}}/api/ops/course/create
+Content-Type: application/json
+
+{
+    "coursename" : "Intro to Java",
+    "academicyear" : "Spring 22",
+    "academicterm" : "Fall 22/Spring 23",
+    "learningObjectives" : "Understand the core principles of Object Oriented Programming",
+    "facultyId" : "1234"
+}
+
+###
+
+POST  {{hostname}}/api/ops/course/update/enroll/1e987b94-0f61-448b-9ffe-11f711bbc65d
+Content-Type: application/json
+
+{
+    "accessCode" : "199ac7ca-eb1d-4e6f-9998-3bce5425a28e"
+}
+### 
+POST  {{hostname}}/api/ops/course/read/getEnrolledStudents/2463eff2-93d1-4b77-98a0-aa6a273f9aa9
+Content-Type: application/json 
+
+# --- Course ---
+
+# --- Activity ---
+
+###
+POST  {{hostname}}/api/ops/activity/create
+Content-Type: application/json
+
+{
+    "topic" : "The Smallest",
+    "points" : 5,
+    "numofattempts" : 1,
+    "availablefrom" : "",
+    "availableto" : "",
+    "language" : "JAVA",
+    "codingActivity" : {
+        "question": "Write a method called (smallest) that takes in 3 int parameters and returns the minimum of them"
+    },
+    "learningObjectives": {
+        "description" : "Properly learn how to write good code (filler)"
+    },
+    "courseId" : "58363b07-42dd-4b87-8ae9-5f1eccee6f42",
+    "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
+    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        int a = 10;\n        int b = 11;\n        int c = 30;\n        int min = a;\n        Solution solution = new Solution();\n        int result = solution.smallest(a, b, c);\n        assertEquals(result, min);\n    }\n    @Test\n    public void testAdd2() {\n        int a = 100;\n        int b = 50;\n        int c = 300;\n        int min = b;\n        Solution solution = new Solution();\n        int result = solution.smallest(a, b, c);\n        assertEquals(result, min);\n    }\n    @Test\n    public void testAdd3() {\n        int a = 321;\n        int b = 123;\n        int c = 1;\n        int min = c;\n        Solution solution = new Solution();\n        int result = solution.smallest(a, b, c);\n        assertEquals(result, min);\n    }\n}"
+}
+
+###
+POST  {{hostname}}/api/ops/activity/create
+Content-Type: application/json
+
+{
+    "topic" : "Sum it up",
+    "points" : 20,
+    "numofattempts" : 1,
+    "availablefrom" : "",
+    "availableto" : "",
+    "language" : "JAVA",
+    "codingActivity" : {
+        "question": "Write a method called (sum) where given an array of integers it returns the sum of the elements in the array"
+    },
+    "learningObjectives": {
+        "description" : "Properly learn how to write good code"
+    },
+    "courseId" : "58363b07-42dd-4b87-8ae9-5f1eccee6f42",
+    "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
+    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        Solution solution = new Solution();\n        assertEquals(0, solution.sum(new int[]{}));\n    }\n    @Test\n    public void testAdd2() {\n        Solution solution = new Solution();\n        assertEquals(1, solution.sum(new int[]{1}));\n    }\n    @Test\n    public void testAdd3() {\n        Solution solution = new Solution();\n        assertEquals(15, solution.sum(new int[]{1, 2, 3, 4, 5}));\n    }\n    @Test\n    public void testAdd4() {\n        Solution solution = new Solution();\n        assertEquals(-5, solution.sum(new int[]{-5}));\n    }\n    @Test\n    public void testAdd5() {\n        Solution solution = new Solution();\n        assertEquals(0, solution.sum(new int[]{1, -2, -3, 4}));\n    }\n}"
+}
+
+###
+POST  {{hostname}}/api/ops/activity/create
+Content-Type: application/json
+
+{
+    "topic" : "We're even",
+    "points" : 50,
+    "numofattempts" : 1,
+    "availablefrom" : "",
+    "availableto" : "",
+    "language" : "JAVA",
+    "codingActivity" : {
+        "question": "Write a method called (isEven) that takes in two int parameters and returns TRUE if one of them is an even number else return FALSE"
+    },
+    "learningObjectives": {
+        "description" : "Properly learn how to write good code ()"
+    },
+    "courseId" : "58363b07-42dd-4b87-8ae9-5f1eccee6f42",
+    "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
+    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        Solution solution = new Solution();\n        assertTrue(solution.isEven(2, 4));\n    }\n    @Test\n    public void testAdd2() {\n        Solution solution = new Solution();\n        assertTrue(solution.isEven(1, 2));\n    }\n    @Test\n    public void testAdd3() {\n        Solution solution = new Solution();\n        assertTrue(!solution.isEven(1, 3));\n    }\n    @Test\n    public void testAdd4() {\n        Solution solution = new Solution();\n        assertTrue(solution.isEven(-2, -4));\n    }\n    @Test\n    public void testAdd5() {\n        Solution solution = new Solution();\n        assertTrue(!solution.isEven(-1, -3));\n    }\n}"
+}
+
+###
+GET  {{hostname}}/api/ops/activity/read
+
+###
+GET {{hostname}}/api/ops/activity/read/668d6818-dea1-472f-b421-d637c120059d
+
+###
+DELETE {{hostname}}/api/ops/activity/delete/606ae7fa-49b2-43d8-ab4f-127edd86f75e
+
+###
+DELETE {{hostname}}/api/ops/activity/delete
+
+# --- Activity ---
+
+# --- Student ---
+###
+GET  {{hostname}}/api/ops/student/read 
+
+###
+GET  {{hostname}}/api/ops/student/read/getCount
+
+###
+GET {{hostname}}/api/ops/student/read/54c922ec-f46a-4fab-8f8f-dca012f7944d
+###
+# GET {{hostname}}/api/ops/student/delete
+
+# --- Student ---
+
+#--- Operations ---
+###
+GET {{hostname}}/api/ops/activity/read/submissions/2ab1601a-b072-4e32-925b-7f01cbafa9b2
