@@ -8,7 +8,8 @@
         "start": "next start",
         "lint": "next lint",
         "prettier": "prettier --write .",
-        "prisma": "cd src && cd prisma && npx prisma migrate deploy && npx prisma generate"
+        "prisma": "cd src && cd prisma && npx prisma migrate deploy && npx prisma generate",
+        "prepare": "husky install"
     },
     "dependencies": {
         "@next/font": "13.1.1",
@@ -43,7 +44,7 @@
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",
         "@types/cookie": "^0.5.1",
-        "husky": "^8.0.2",
+        "husky": "^8.0.3",
         "prettier": "^2.7.1",
         "prettier-plugin-tailwindcss": "^0.1.13"
     }
