@@ -1,7 +1,10 @@
 import { prisma } from "@config/prisma.connect"
 import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function getPendingStudents(req : NextApiRequest, res : NextApiResponse) {
+export default async function getPendingStudents(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     try {
         const getAll = await prisma.student.findMany({
             where: {

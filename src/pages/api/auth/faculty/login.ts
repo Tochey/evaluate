@@ -5,7 +5,10 @@ import { serialize } from "cookie"
 import { facultyLoginValidation } from "@lib/validate"
 import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function handler(req : NextApiRequest, res : NextApiResponse) {
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     const error = facultyLoginValidation(req.body)
     if (error) return res.status(400).send(error)
 

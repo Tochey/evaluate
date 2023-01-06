@@ -2,15 +2,17 @@ import { prisma } from "@config/prisma.connect"
 import { NextApiRequest, NextApiResponse } from "next"
 import { Secret, verify } from "jsonwebtoken"
 
-
-export default async function me(req : NextApiRequest, res : NextApiResponse) {
+export default async function me(req: NextApiRequest, res: NextApiResponse) {
     const { cookies } = req
 
     const authorization = cookies.evaluate
     if (!authorization) return res.status(403).json("Not Authenticated")
 
     try {
-        const payload = verify(authorization, process.env.ACCESS_TOKEN_SECRET as Secret)
+        const payload = verify(
+            authorization,
+            process.env.ACCESS_TOKEN_SECRET as Secret
+        )
         console.log(payload)
         const { role, id } = payload as { role: string; id: string }
 

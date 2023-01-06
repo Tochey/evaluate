@@ -3,8 +3,10 @@ import prismaErrorWrapper from "@lib/prismaErrorWrapper"
 import { Prisma } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function create(req : NextApiRequest, res : NextApiResponse) {
-   
+export default async function create(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     const {
         topic,
         points,
@@ -18,7 +20,6 @@ export default async function create(req : NextApiRequest, res : NextApiResponse
         codingActivity: { question },
         learningObjectives: { description },
     } = req.body
-    
 
     return prismaErrorWrapper(res, async () => {
         return await prisma.activity.create({

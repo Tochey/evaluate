@@ -4,7 +4,10 @@ import { NextApiRequest, NextApiResponse } from "next"
 import { studentSignupValidation } from "@lib/validate"
 import _isAvailable from "@lib/_isAvailable"
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     const error = studentSignupValidation(req.body)
     if (error) return res.status(400).send(error)
 

@@ -5,7 +5,10 @@ import { studentLoginValidation } from "@lib/validate"
 import { NextApiRequest, NextApiResponse } from "next"
 import { prisma } from "@config/prisma.connect"
 
-export default async function handler(req : NextApiRequest, res : NextApiResponse) {
+export default async function handler(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     const error = studentLoginValidation(req.body)
     if (error) return res.status(400).send(error)
 

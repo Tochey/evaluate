@@ -3,7 +3,10 @@ import { prisma } from "@config/prisma.connect"
 import hashPassword from "@lib/hashPassword"
 import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function createFacultyCredentials(req : NextApiRequest, res : NextApiResponse) {
+export default async function createFacultyCredentials(
+    req: NextApiRequest,
+    res: NextApiResponse
+) {
     const error = facultyCredentialsValidation(req.body)
     if (error) return res.status(400).send(error)
 
@@ -19,7 +22,7 @@ export default async function createFacultyCredentials(req : NextApiRequest, res
             },
         })
         return res.status(201).json({ message: newFaculty })
-    } catch (error : any) {
+    } catch (error: any) {
         return res.status(400).json({
             message: error.message,
         })
