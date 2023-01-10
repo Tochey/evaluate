@@ -1,5 +1,5 @@
 @hostname = http://localhost:3000/
-# https://main.d36cdjokntdrty.amplifyapp.com/
+# https://main.d34qxtpa1jstt.amplifyapp.com 
 # http://localhost:3000/
 
 # --- Authentication ---
