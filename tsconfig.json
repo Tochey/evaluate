@@ -21,7 +21,9 @@
         "**/*.ts",
         "**/*.tsx",
         "./tsconfig.paths.json",
-        "src/components/codeMirror.jsx"
+        "src/components/codeMirror.jsx",
+        "src/pages/_app.tsx",
+        "src/pages/student/courses/[courseId]/activity/[activityId].js"
     ],
     "exclude": ["node_modules", "infra-as-code"]
 }

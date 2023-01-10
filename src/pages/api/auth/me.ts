@@ -13,7 +13,6 @@ export default async function me(req: NextApiRequest, res: NextApiResponse) {
             authorization,
             process.env.ACCESS_TOKEN_SECRET as Secret
         )
-        console.log(payload)
         const { role, id } = payload as { role: string; id: string }
 
         if (role === "STUDENT") {

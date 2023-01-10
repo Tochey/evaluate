@@ -2,15 +2,25 @@ import salemstate from "../public/salemstate.jpeg"
 import Link from "next/link"
 import Image from "next/image"
 
+interface IProps {
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    handleSubmit: React.MouseEventHandler<HTMLButtonElement>
+    redir: string
+    emailPlaceHolder: string
+    identity: string
+    inputName: string
+    error: string
+}
+
 export default function Login({
+    inputName,
+    error,
     handleChange,
     handleSubmit,
     redir,
-    emailPlaceHolder,
     identity,
-    inputName,
-    error,
-}) {
+    emailPlaceHolder,
+}: IProps) {
     return (
         <section className='gradient-form h-full text-white md:h-screen '>
             <div className='container mx-auto h-full py-12 px-6 '>

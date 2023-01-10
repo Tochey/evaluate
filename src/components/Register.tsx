@@ -2,7 +2,16 @@ import salemstate from "../public/salemstate.jpeg"
 import Link from "next/link"
 import Image from "next/image"
 
-export default function Register({ handleChange, handleSubmit, error }) {
+interface IProps {
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    handleSubmit: React.MouseEventHandler<HTMLButtonElement>
+    error: string
+}
+export default function Register({
+    handleChange,
+    handleSubmit,
+    error,
+}: IProps) {
     return (
         <section className='gradient-form h-full text-white md:h-screen '>
             <div className='container mx-auto h-full py-12 px-6 '>

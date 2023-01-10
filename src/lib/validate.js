@@ -11,8 +11,8 @@ export function studentSignupValidation(data) {
             .trim(),
         email: z
             .string()
-            .email("Please Input a valid email")
-            .endsWith("@salemstate.edu")
+            .email("Please Input a valid email that ends in .edu")
+            .endsWith(".edu")
             .trim(),
         password: z
             .string()
@@ -29,7 +29,7 @@ export function studentSignupValidation(data) {
 
 export function studentLoginValidation(data) {
     const loginValidationSchema = z.object({
-        email: z.string().email().endsWith("@salemstate.edu").trim(),
+        email: z.string().email().endsWith(".edu").trim(),
         password: z
             .string()
             .min(1, "Password must be 8 or more characters")

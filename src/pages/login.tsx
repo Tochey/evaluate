@@ -2,18 +2,23 @@ import { useState } from "react"
 import { useRouter } from "next/router"
 import { getUser, useAuth } from "@lib/AuthContext"
 import Login from "@components/Login"
+import { GetServerSideProps, GetServerSidePropsContext } from "next"
 
 export default function StudentLogin() {
     const router = useRouter()
     const [data, setData] = useState({ email: "", password: "" })
-    const [error, setError] = useState([])
+    const [error, setError] = useState("")
     const { studentLogin } = useAuth()
 
-    const handleStudentChange = ({ currentTarget: input }) => {
+    const handleStudentChange: (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => void = ({ currentTarget: input }) => {
         setData({ ...data, [input.name]: input.value })
     }
 
-    const handleStudentSubmit = async (e) => {
+    const handleStudentSubmit: React.MouseEventHandler<
+        HTMLButtonElement
+    > = async (e) => {
         setError("")
         e.preventDefault()
 
@@ -41,7 +46,9 @@ export default function StudentLogin() {
     )
 }
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (
+    ctx: GetServerSidePropsContext
+) => {
     const res = await getUser(ctx)
     if (res.status === "SIGNED_OUT") {
         return {

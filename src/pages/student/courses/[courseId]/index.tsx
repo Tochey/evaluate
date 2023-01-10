@@ -1,17 +1,63 @@
 import StudentActivities from "@components/StudentActivities"
 import api from "@lib/api"
 import { getUser } from "@lib/AuthContext"
+import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
+type codingActivity = {
+    codingactivityId: string
+    question: string
+    language?: string
+    activityId: string
+    testCases: string
+    skeletonCode: string
+}
+type activity = {
+    activityId: string
+    topic: string
+    points: number
+    numofattempts: number
+    availablefrom: string
+    availableto: string
+    codingActivity: codingActivity
+}
 
-export default function Index({ info, submissions }) {
+interface IProps {
+    courseInfo: {
+        courseId: string
+        major: string
+        coursename: string
+        academicyear: string
+        academicterm: string
+        createdAt: string
+        accessCode: string
+        instructorId: string
+        learningObjectives: object[][] | []
+        instructor: { firstName: string; lastName: string }
+        activities: activity[]
+    }
+
+    submissions: [
+        {
+            submissionId: string
+            sumbittedAt: string
+            score: string
+            studentid: string
+            sourceCode: string
+            codingActivityId: string
+        }
+    ]
+}
+export default function Index({ courseInfo, submissions }: IProps) {
     const {
-        instructor: { firstname, lastname },
+        instructor: { firstName, lastName },
         activities,
-    } = info
+    } = courseInfo
 
-    const codingActivityIds = []
+    const codingActivityIds: string[] = []
     submissions.map((e) => {
         codingActivityIds.push(e.codingActivityId)
     })
+
+    console.log(courseInfo)
 
     if (activities.length === 0) {
         return (
@@ -22,7 +68,7 @@ export default function Index({ info, submissions }) {
     }
     return (
         <div className='flex flex-col items-center gap-10 md:flex-row'>
-            {activities.map((e, index) => {
+            {activities.map((e, index: number) => {
                 if (
                     codingActivityIds.includes(
                         e.codingActivity.codingactivityId
@@ -57,15 +103,17 @@ export default function Index({ info, submissions }) {
     )
 }
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (
+    ctx: GetServerSidePropsContext
+) => {
     const {
         user: { sid },
     } = await getUser(ctx)
     const regexExp =
         /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi
     const { courseId } = ctx.query
-
-    if (!regexExp.test(courseId)) {
+    1
+    if (!regexExp.test(courseId as string)) {
         return {
             redirect: {
                 permanent: false,
@@ -74,12 +122,12 @@ export async function getServerSideProps(ctx) {
         }
     }
     let res = await api.get(`api/ops/course/read/${courseId}`)
-    const info = res.data
+    const courseInfo = res.data
 
     res = await api.get(`api/ops/student/read/submissions/${sid}`)
     const submissions = res.data.submissions
 
-    if (!info) {
+    if (!courseInfo) {
         return {
             redirect: {
                 permanent: false,
@@ -90,7 +138,7 @@ export async function getServerSideProps(ctx) {
 
     return {
         props: {
-            info,
+            courseInfo,
             submissions,
         },
     }

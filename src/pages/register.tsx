@@ -1,17 +1,22 @@
 import { useState } from "react"
 import { getUser, useAuth } from "@lib/AuthContext"
 import Register from "@components/Register"
+import { GetServerSideProps, GetServerSidePropsContext } from "next"
 
 export default function StudentRegister() {
     const [data, setData] = useState({ email: "", username: "", password: "" })
     const [error, setError] = useState("")
     const { studentRegister } = useAuth()
 
-    const handleChange = ({ currentTarget: input }) => {
+    const handleChange: (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => void = ({ currentTarget: input }) => {
         setData({ ...data, [input.name]: input.value })
     }
 
-    const studentRegisterSubmit = async (e) => {
+    const studentRegisterSubmit: React.MouseEventHandler<
+        HTMLButtonElement
+    > = async (e) => {
         e.preventDefault()
 
         const { email, username, password } = data
@@ -36,7 +41,9 @@ export default function StudentRegister() {
     )
 }
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (
+    ctx: GetServerSidePropsContext
+) => {
     const res = await getUser(ctx)
     if (res.status === "SIGNED_OUT") {
         return {
