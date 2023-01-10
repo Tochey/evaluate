@@ -7,7 +7,7 @@ export function studentSignupValidation(data) {
         username: z
             .string()
             .min(5, "Username must be 6 characters or more")
-            .max(12, "Username is too long")
+            .max(32, "Username is too long")
             .trim(),
         email: z
             .string()
@@ -17,7 +17,7 @@ export function studentSignupValidation(data) {
         password: z
             .string()
             .min(8, "Password must be 8 or more characters")
-            .max(12, "Password is too long")
+            .max(16, "Password is too long")
             .trim(),
     })
     try {
@@ -33,7 +33,7 @@ export function studentLoginValidation(data) {
         password: z
             .string()
             .min(1, "Password must be 8 or more characters")
-            .max(12, "Password is too long")
+            .max(16, "Password is too long")
             .trim(),
     })
     try {

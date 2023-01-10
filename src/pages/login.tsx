@@ -38,7 +38,7 @@ export default function StudentLogin() {
             handleChange={handleStudentChange}
             handleSubmit={handleStudentSubmit}
             redir={"/faculty/login"}
-            emailPlaceHolder={"Enter your SSU email"}
+            emailPlaceHolder={"Enter your email please"}
             identity='Student'
             inputName='email'
             error={error}
