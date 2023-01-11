@@ -6,12 +6,11 @@ let urls = {
     production: process.env.PROD_URL,
 }
 const api = Axios.create({
-    baseURL: urls[process.env.NODE_ENV as "development" | "production"], 
+    baseURL: urls[process.env.NODE_ENV as "development" | "production"],
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
     },
 })
-
 
 export default api

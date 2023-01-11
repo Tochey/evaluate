@@ -104,7 +104,7 @@ export default function Home({ courses }) {
 
 export async function getServerSideProps(ctx) {
     const { user, status } = await getUser(ctx)
-    console.log({user, status})
+    console.log({ user, status })
     if (status == "SIGNED_OUT") {
         return {
             redirect: {
