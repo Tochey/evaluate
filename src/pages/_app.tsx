@@ -4,6 +4,7 @@ import { getUser } from "@lib/AuthContext"
 import { AuthProvider } from "@lib/AuthContext"
 import Navbar from "@components/Navbar"
 import { NextPage } from "next"
+import api from "@lib/api"
 interface IProps {
     Component: NextPage
     pageProps: any
@@ -18,6 +19,7 @@ interface IProps {
           }
 }
 function MyApp({ Component, pageProps, auth }: IProps) {
+    console.log(api.defaults.baseURL)
     return (
         <main className=' bg-primary md:px-20 lg:px-40'>
             <AuthProvider myAuth={auth}>

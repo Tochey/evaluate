@@ -1,16 +1,17 @@
 import Axios from "axios"
+let url: string | undefined
 
 let urls = {
     development: "http://localhost:3000/",
-    production: "https://main.d34qxtpa1jstt.amplifyapp.com/",
+    production: process.env.PROD_URL,
 }
-
 const api = Axios.create({
-    baseURL: urls[process.env.NODE_ENV],
+    baseURL: urls[process.env.NODE_ENV as "development" | "production"], 
     headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
     },
 })
+
 
 export default api
