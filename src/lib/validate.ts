@@ -2,7 +2,7 @@ import { fromZodError } from "zod-validation-error"
 
 const z = require("zod")
 
-export function studentSignupValidation(data) {
+export function studentSignupValidation(data: {}) {
     const registerValidationSchema = z.object({
         username: z
             .string()
@@ -22,12 +22,12 @@ export function studentSignupValidation(data) {
     })
     try {
         registerValidationSchema.parse(data)
-    } catch (err) {
+    } catch (err: any) {
         return fromZodError(err).message
     }
 }
 
-export function studentLoginValidation(data) {
+export function studentLoginValidation(data: string) {
     const loginValidationSchema = z.object({
         email: z.string().email().endsWith(".edu").trim(),
         password: z
@@ -38,12 +38,12 @@ export function studentLoginValidation(data) {
     })
     try {
         loginValidationSchema.parse(data)
-    } catch (err) {
+    } catch (err: any) {
         return fromZodError(err).message
     }
 }
 
-export function facultyCredentialsValidation(data) {
+export function facultyCredentialsValidation(data: string) {
     const registerValidationSchema = z.object({
         facultyId: z.string().length(4, "Invalid faculty Id").trim(),
         firstName: z.string().trim(),
@@ -56,12 +56,12 @@ export function facultyCredentialsValidation(data) {
     })
     try {
         registerValidationSchema.parse(data)
-    } catch (err) {
+    } catch (err: any) {
         return fromZodError(err).message
     }
 }
 
-export function facultyLoginValidation(data) {
+export function facultyLoginValidation(data: string) {
     const loginValidationSchema = z.object({
         facultyId: z.string().length(4, "Invalid faculty Id").trim(),
         password: z
@@ -72,7 +72,7 @@ export function facultyLoginValidation(data) {
     })
     try {
         loginValidationSchema.parse(data)
-    } catch (err) {
+    } catch (err: any) {
         return fromZodError(err).message
     }
 }

@@ -3,21 +3,33 @@ import { getUser, useAuth } from "@lib/AuthContext"
 import { useRouter } from "next/router"
 import { useState } from "react"
 import StudentCourses from "@components/StudentCourses"
-
-export default function Home({ courses }) {
+import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
+import { Course, faculty, LearningObjective } from "@prisma/client"
+interface IProps {
+    courses: Array<
+        Course & { instructor: faculty } & {
+            learningObjectives: Array<LearningObjective>
+        }
+    >
+}
+export default function Home({ courses }: IProps) {
     const { auth } = useAuth()
     const router = useRouter()
     const [accessCode, setAccessCode] = useState("")
-    const [error, setError] = useState()
+    const [error, setError] = useState("")
     const {
         user: { username, sid },
     } = auth
 
-    const handleChange = ({ currentTarget: input }) => {
+    const handleChange: (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => void = ({ currentTarget: input }) => {
         setAccessCode(input.value)
     }
 
-    const handleEnroll = async (e) => {
+    const handleEnroll: React.MouseEventHandler<HTMLButtonElement> = async (
+        e
+    ) => {
         e.preventDefault()
         try {
             const { data } = await api.post(
@@ -28,7 +40,7 @@ export default function Home({ courses }) {
             )
             setAccessCode("")
             window.location.reload()
-        } catch (error) {
+        } catch (error: any) {
             if (
                 error.response &&
                 error.response.status >= 400 &&
@@ -39,7 +51,7 @@ export default function Home({ courses }) {
         }
     }
 
-    const handleClick = (courseId) => {
+    const handleClick = (courseId: string) => {
         router.push(`/student/courses/${courseId}`)
     }
 
@@ -102,9 +114,10 @@ export default function Home({ courses }) {
     )
 }
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (
+    ctx: GetServerSidePropsContext
+) => {
     const { user, status } = await getUser(ctx)
-    console.log({ user, status })
     if (status == "SIGNED_OUT") {
         return {
             redirect: {

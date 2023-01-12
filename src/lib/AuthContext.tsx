@@ -1,13 +1,26 @@
 import { useContext, createContext } from "react"
 import { useRouter } from "next/router"
 import api from "./api"
+import { NextPageContext } from "next"
+import { faculty, Student } from "@prisma/client"
 
-const AuthContext = createContext()
+interface IAuth {
+    myAuth: {
+        status: "SIGNED_IN" | "SIGNED_OUT"
+        user: Student | faculty | null
+    }
+    children: (JSX.Element | null)[]
+}
+const AuthContext = createContext({})
+export const getUser = async (ctx: NextPageContext) => {
+    const { req } = ctx
+    const isServer = !!req
+    const cookies = isServer ? req?.headers.cookie : undefined
+    api.defaults.headers.Cookie = ""
+    if (isServer && cookies) {
+        api.defaults.headers.Cookie = cookies
+    }
 
-export const getUser = async (ctx) => {
-    api.defaults.headers = ctx?.req?.headers?.cookie
-        ? { cookie: ctx.req.headers.cookie }
-        : undefined
     return await api
         .get("api/auth/me", {
             withCredentials: true,
@@ -23,10 +36,10 @@ export const getUser = async (ctx) => {
             return { status: "SIGNED_OUT", user: null }
         })
 }
-export const AuthProvider = (props) => {
+export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
     const router = useRouter()
-    const auth = props.myAuth || { status: "SIGNED_OUT", user: null }
-    const studentLogin = async (email, password) => {
+    const auth = myAuth || { status: "SIGNED_OUT", user: null, children: [] }
+    const studentLogin = async (email: string, password: string) => {
         const data = {
             email,
             password,
@@ -42,7 +55,10 @@ export const AuthProvider = (props) => {
                 return error
             })
     }
-    const facultyLogin = async (facultyId, password) => {
+    const facultyLogin = async (
+        facultyId: string,
+        password: string
+    ): Promise<void> => {
         const data = {
             facultyId,
             password,
@@ -58,7 +74,11 @@ export const AuthProvider = (props) => {
                 console.error("Incorrect email or password entered.")
             })
     }
-    const studentRegister = async (email, username, password) => {
+    const studentRegister = async (
+        email: string,
+        username: string,
+        password: string
+    ): Promise<void> => {
         const data = {
             email,
             username,
@@ -77,11 +97,11 @@ export const AuthProvider = (props) => {
     }
 
     const facultyRegister = async (
-        facultyId,
-        firstName,
-        lastName,
-        password
-    ) => {
+        facultyId: string,
+        firstName: string,
+        lastName: string,
+        password: string
+    ): Promise<void> => {
         const data = {
             facultyId,
             firstName,
@@ -92,29 +112,15 @@ export const AuthProvider = (props) => {
             .post("api/ops/superuser/createFacultyCredentials", data, {
                 withCredentials: true,
             })
-            .then(function (error) {
+            .then(function (error: any) {
                 console.log(error.message)
-            })
-    }
-
-    const logout = async () => {
-        return await api
-            .get(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-                withCredentials: true,
-            })
-            .then(() => {
-                router.push("/")
-            })
-            .catch((error) => {
-                console.error(error.message)
             })
     }
 
     return (
         <AuthContext.Provider
             value={{
-                auth,
-                logout,
+                myAuth,
                 facultyRegister,
                 studentRegister,
                 studentLogin,

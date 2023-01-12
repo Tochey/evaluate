@@ -3,23 +3,15 @@ import App, { AppContext } from "next/app"
 import { getUser } from "@lib/AuthContext"
 import { AuthProvider } from "@lib/AuthContext"
 import Navbar from "@components/Navbar"
-import { NextPage } from "next"
-import api from "@lib/api"
+import { faculty, Student } from "@prisma/client"
 interface IProps {
-    Component: NextPage
     pageProps: any
-    auth:
-        | {
-              status: string
-              user: any
-          }
-        | {
-              status: string
-              user: null
-          }
+    auth: {
+        status: "SIGNED_IN" | "SIGNED_OUT"
+        user: Student | faculty | null
+    }
 }
-function MyApp({ Component, pageProps, auth }: IProps) {
-    console.log(api.defaults.baseURL)
+function MyApp({ Component, pageProps, auth }: AppContext & IProps) {
     return (
         <main className=' bg-primary md:px-20 lg:px-40'>
             <AuthProvider myAuth={auth}>

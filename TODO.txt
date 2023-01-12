@@ -21,6 +21,7 @@ Tochi:
 * build out faculty side
 * ssr cookie to persist info ( user's code and preferences)
 * write testRunner to /tmp dir in dockerfile then copy to dir on every subsequent use case
+* profile page with personalized statistics
 
 Backlog
 add allowed domains for cookie 

@@ -2,49 +2,19 @@ import StudentActivities from "@components/StudentActivities"
 import api from "@lib/api"
 import { getUser } from "@lib/AuthContext"
 import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
-type codingActivity = {
-    codingactivityId: string
-    question: string
-    language?: string
-    activityId: string
-    testCases: string
-    skeletonCode: string
-}
-type activity = {
-    activityId: string
-    topic: string
-    points: number
-    numofattempts: number
-    availablefrom: string
-    availableto: string
-    codingActivity: codingActivity
-}
+import {
+    Course,
+    Submission,
+    faculty,
+    Activity,
+    CodingActivity,
+} from "@prisma/client"
 
 interface IProps {
-    courseInfo: {
-        courseId: string
-        major: string
-        coursename: string
-        academicyear: string
-        academicterm: string
-        createdAt: string
-        accessCode: string
-        instructorId: string
-        learningObjectives: object[][] | []
-        instructor: { firstName: string; lastName: string }
-        activities: activity[]
+    courseInfo: Course & { instructor: faculty } & {
+        activities: Array<Activity & { codingActivity: CodingActivity }>
     }
-
-    submissions: [
-        {
-            submissionId: string
-            sumbittedAt: string
-            score: string
-            studentid: string
-            sourceCode: string
-            codingActivityId: string
-        }
-    ]
+    submissions: Submission[]
 }
 export default function Index({ courseInfo, submissions }: IProps) {
     const {
@@ -56,8 +26,6 @@ export default function Index({ courseInfo, submissions }: IProps) {
     submissions.map((e) => {
         codingActivityIds.push(e.codingActivityId)
     })
-
-    console.log(courseInfo)
 
     if (activities.length === 0) {
         return (
@@ -77,8 +45,8 @@ export default function Index({ courseInfo, submissions }: IProps) {
                     return (
                         <StudentActivities
                             topic={e.topic}
-                            point={e.points}
-                            numberOfAttempts={e.numofattempts}
+                            points={e.points}
+                            numofattempts={e.numofattempts}
                             isAvailable={false}
                             availableto={e.availableto}
                             activityId={e.activityId}
@@ -89,8 +57,8 @@ export default function Index({ courseInfo, submissions }: IProps) {
                     return (
                         <StudentActivities
                             topic={e.topic}
-                            point={e.points}
-                            numberOfAttempts={e.numofattempts}
+                            points={e.points}
+                            numofattempts={e.numofattempts}
                             isAvailable={true}
                             availableto={e.availableto}
                             activityId={e.activityId}

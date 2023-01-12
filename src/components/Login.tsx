@@ -1,6 +1,7 @@
 import salemstate from "../public/salemstate.jpeg"
 import Link from "next/link"
 import Image from "next/image"
+import { Prisma } from "@prisma/client"
 
 interface IProps {
     handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void

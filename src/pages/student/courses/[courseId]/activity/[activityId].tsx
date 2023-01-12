@@ -2,12 +2,17 @@ import { useState, useEffect } from "react"
 import CodeUi from "@components/codeMirror"
 import api from "@lib/api"
 import { getUser } from "@lib/AuthContext"
-
-export default function StudentActivity({ info, sid, submissions }) {
+import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
+import { Activity, CodingActivity } from "@prisma/client"
+interface IProps {
+    activities: Activity & { codingActivity: CodingActivity }
+    sid: string
+}
+export default function StudentActivity({ activities, sid }: IProps) {
     const {
         numofattempts,
         codingActivity: { codingactivityId, question, language, skeletonCode },
-    } = info
+    } = activities
 
     return (
         <div className='flex justify-center'>
@@ -28,21 +33,22 @@ export default function StudentActivity({ info, sid, submissions }) {
                 codingActivityId={codingactivityId}
                 skeletonCode={skeletonCode}
                 sid={sid}
-                numofattempts={numofattempts}
             />
         </div>
     )
 }
 
-export async function getServerSideProps(ctx) {
+export const getServerSideProps: GetServerSideProps = async (
+    ctx: GetServerSidePropsContext
+) => {
     const {
         user: { sid },
     } = await getUser(ctx)
     const { activityId } = ctx.query
     let res = await api.get(`api/ops/activity/read/${activityId}`)
-    const info = res.data
+    const activities = res.data
 
     return {
-        props: { info, sid },
+        props: { activities, sid },
     }
 }

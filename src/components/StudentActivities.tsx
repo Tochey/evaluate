@@ -1,15 +1,20 @@
 import { useRouter } from "next/router"
+import { Activity } from "@prisma/client"
 
+type IProps = Omit<Activity, "courseId" | "availablefrom"> & {
+    isAvailable: boolean
+}
 export default function StudentActivities({
     topic,
-    point,
-    numberOfAttempts,
+    points,
+    numofattempts,
     isAvailable,
     availableto,
     activityId,
-}) {
+}: IProps) {
     const router = useRouter()
-    const handleClick = (e) => {
+
+    const handleClick = (e: string) => {
         router.push(`${router.asPath}/activity/${e}`)
     }
     return (
@@ -18,10 +23,10 @@ export default function StudentActivities({
                 <div className='mb-2 text-xl font-bold text-white'>{topic}</div>
                 <p className='text-base text-secondary'>
                     Points:{" "}
-                    <span className='font-bold text-white'>{point}</span> |
+                    <span className='font-bold text-white'>{points}</span> |
                     Attempts:{" "}
                     <span className='font-bold text-white'>
-                        {numberOfAttempts}
+                        {numofattempts}
                     </span>{" "}
                     | Due :{" "}
                     <span className='font-bold text-white'>

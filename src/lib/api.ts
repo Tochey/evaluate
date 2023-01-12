@@ -1,5 +1,4 @@
 import Axios from "axios"
-let url: string | undefined
 
 let urls = {
     development: "http://localhost:3000/",

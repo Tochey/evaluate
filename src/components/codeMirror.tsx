@@ -5,19 +5,29 @@ import { dracula } from "@uiw/codemirror-themes-all"
 import { javaDefault } from "@lib/defaults"
 import axios from "axios"
 import { useRouter } from "next/router"
+interface IProps {
+    skeletonCode: string
+    language: string
+    codingActivityId: string
+    sid: string
+}
 
+type IButtonProps = {
+    state: string
+    func: () => void
+}
 export default function CodeUi({
     skeletonCode,
     sid,
     language,
     codingActivityId,
-}) {
+}: IProps) {
     const [codeActivity, setCodeActivity] = useState(javaDefault)
-    const [output, setOutput] = useState(null)
+    const [output, setOutput] = useState("")
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
 
-    const RunButton = ({ state, func }) => {
+    const RunButton = ({ state, func }: IButtonProps) => {
         return (
             <button
                 className={`inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold ${
@@ -30,7 +40,7 @@ export default function CodeUi({
         )
     }
 
-    const SubmitButton = ({ state, func }) => {
+    const SubmitButton = ({ state, func }: IButtonProps) => {
         return (
             <button
                 className={`ml-3 inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold ${
@@ -53,7 +63,10 @@ export default function CodeUi({
             setIsLoading(true)
             setOutput("")
             await axios
-                .post(process.env.NEXT_PUBLIC_LAMBDA_RUN_CODE_URL, data)
+                .post(
+                    process.env.NEXT_PUBLIC_LAMBDA_RUN_CODE_URL as string,
+                    data
+                )
                 .then(async ({ data: { result } }) => {
                     setOutput(result)
                 })
@@ -81,7 +94,10 @@ export default function CodeUi({
             setIsLoading(true)
             setOutput("")
             await axios
-                .post(process.env.NEXT_PUBLIC_LAMBDA_GRADE_CODE_URL, data)
+                .post(
+                    process.env.NEXT_PUBLIC_LAMBDA_GRADE_CODE_URL as string,
+                    data
+                )
                 .then(async ({ data: { result } }) => {
                     result = result.replace(/\n/g, "")
                     result = Number(result)

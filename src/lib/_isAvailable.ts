@@ -1,7 +1,7 @@
 import { prisma } from "../config/prisma.connect"
 
 //checks if student credentials can be allocated to others
-export default async function _isAvailable(email) {
+export default async function _isAvailable(email: string) {
     const student = await prisma.student.findUnique({
         where: {
             email: email,
