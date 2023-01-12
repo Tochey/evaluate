@@ -1,7 +1,7 @@
 import { useContext, createContext } from "react"
 import { useRouter } from "next/router"
 import api from "./api"
-import { NextPageContext } from "next"
+import { GetServerSidePropsContext, NextPageContext } from "next"
 import { faculty, Student } from "@prisma/client"
 
 interface IAuth {
@@ -11,8 +11,8 @@ interface IAuth {
     }
     children: (JSX.Element | null)[]
 }
-const AuthContext = createContext({})
-export const getUser = async (ctx: NextPageContext) => {
+const AuthContext = createContext({studentRegister: (email: string, username: string, password: string) => Promise<void>, studentLogin: (email: string, password: string) => Promise<void>})
+export const getUser = async (ctx: GetServerSidePropsContext) => {
     const { req } = ctx
     const isServer = !!req
     const cookies = isServer ? req?.headers.cookie : undefined
