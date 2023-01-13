@@ -2,7 +2,6 @@ import { useContext, createContext } from "react"
 import { useRouter } from "next/router"
 import api from "./api"
 import { faculty, Student } from "@prisma/client"
-import { Axios, AxiosError } from "axios"
 
 interface IAuth {
     myAuth: {
@@ -29,19 +28,13 @@ type facultyRegister = (
     password: string
 ) => Promise<void | any>
 
-type facultyLogin = (
-    facultyId: string,
-    password: string
-) => Promise<void | any>
+type facultyLogin = (facultyId: string, password: string) => Promise<void | any>
 type studentRegister = (
     email: string,
     password: string,
     username: string
 ) => Promise<void | any>
-type studentLogin = (
-    email: string,
-    password: string
-) => Promise<void | any>
+type studentLogin = (email: string, password: string) => Promise<void | any>
 
 const AuthContext = createContext<IAuthContext>({
     auth: { status: "SIGNED_OUT", user: null },

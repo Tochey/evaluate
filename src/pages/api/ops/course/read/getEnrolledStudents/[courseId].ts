@@ -1,12 +1,13 @@
 import prismaErrorWrapper from "@lib/prismaErrorWrapper"
 import { prisma } from "@config/prisma.connect"
+import { NextApiRequest, NextApiResponse } from "next"
 
-export default function (req, res) {
+export default function getEnrolledStudents(req : NextApiRequest, res : NextApiResponse) {
     const { courseId } = req.query
     return prismaErrorWrapper(res, async () => {
         return prisma.course.findMany({
             where: {
-                courseId: courseId,
+                courseId: courseId as string,
             },
             select: {
                 students: true,

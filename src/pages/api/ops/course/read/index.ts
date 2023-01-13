@@ -2,7 +2,7 @@ import prismaErrorWrapper from "@lib/prismaErrorWrapper"
 import { prisma } from "@config/prisma.connect"
 import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function getAll(
+export default async function getAllCourses(
     req: NextApiRequest,
     res: NextApiResponse
 ) {

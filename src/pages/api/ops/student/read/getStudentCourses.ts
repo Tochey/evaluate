@@ -1,7 +1,8 @@
 import { prisma } from "@config/prisma.connect"
 import prismaErrorWrapper from "@lib/prismaErrorWrapper"
+import { NextApiRequest, NextApiResponse } from "next"
 
-export default async function (req, res) {
+export default async function getStudentCourses(req: NextApiRequest, res: NextApiResponse) {
     const { sid } = req.body
     return prismaErrorWrapper(res, async () => {
         return await prisma.student.findUnique({

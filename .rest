@@ -1,4 +1,4 @@
-@hostname = https://main.d34qxtpa1jstt.amplifyapp.com/
+@hostname = http://localhost:3000/
 # https://main.d34qxtpa1jstt.amplifyapp.com 
 # http://localhost:3000/
 
@@ -83,7 +83,7 @@ Content-Type: application/json
     "accessCode" : "199ac7ca-eb1d-4e6f-9998-3bce5425a28e"
 }
 ### 
-POST  {{hostname}}/api/ops/course/read/getEnrolledStudents/2463eff2-93d1-4b77-98a0-aa6a273f9aa9
+POST  {{hostname}}/api/ops/course/read/getEnrolledStudents/28b7593a-3569-4394-a137-221f5349cbe4
 Content-Type: application/json 
 
 # --- Course ---

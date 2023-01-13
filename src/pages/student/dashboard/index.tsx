@@ -17,7 +17,7 @@ type CourseMouseEventHandler = (
     course: string
 ) => void
 
-export default function Home({ courses }: IProps) {
+export default function Dashboard({ courses }: IProps) {
     const { auth } = useAuth()
     const router = useRouter()
     const [accessCode, setAccessCode] = useState("")
