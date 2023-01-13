@@ -27,15 +27,21 @@ type facultyRegister = (
     firstName: string,
     lastName: string,
     password: string
-) => Promise<void | AxiosError>
+) => Promise<void | any>
 
-type facultyLogin = (facultyId: string, password: string) => Promise<void | AxiosError>
+type facultyLogin = (
+    facultyId: string,
+    password: string
+) => Promise<void | any>
 type studentRegister = (
     email: string,
     password: string,
     username: string
-) => Promise<void | AxiosError>
-type studentLogin = (email: string, password: string) => Promise<void | AxiosError>
+) => Promise<void | any>
+type studentLogin = (
+    email: string,
+    password: string
+) => Promise<void | any>
 
 const AuthContext = createContext<IAuthContext>({
     auth: { status: "SIGNED_OUT", user: null },
@@ -85,7 +91,7 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
             .then(() => {
                 router.push("/student/dashboard")
             })
-            .catch((error : AxiosError) => {
+            .catch((error: any) => {
                 return error
             })
     }
@@ -101,7 +107,7 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
             .then(() => {
                 router.push("/faculty/dashboard")
             })
-            .catch((error : AxiosError) => {
+            .catch((error: any) => {
                 return error
             })
     }
@@ -122,7 +128,7 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
             .then(() => {
                 router.push("/login")
             })
-            .catch((error : AxiosError) => {
+            .catch((error: any) => {
                 return error
             })
     }

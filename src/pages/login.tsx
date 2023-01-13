@@ -29,8 +29,7 @@ export default function StudentLogin() {
             error?.response.status >= 400 &&
             error?.response.status <= 500
         ) {
-
-            setError(error.response.data as string)
+            setError(error.response.data)
         }
     }
 

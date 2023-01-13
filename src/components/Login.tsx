@@ -69,7 +69,7 @@ export default function Login({
                                             </div>
                                             {error && (
                                                 <p className=' text-red-500'>
-                                                    {error}
+                                                    {error} 
                                                 </p>
                                             )}
                                             <div className='mb-12 pt-1 pb-1 text-center'>

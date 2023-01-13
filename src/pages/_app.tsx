@@ -4,7 +4,7 @@ import { getUser } from "@lib/AuthContext"
 import { AuthProvider } from "@lib/AuthContext"
 import Navbar from "@components/Navbar"
 import { faculty, Student } from "@prisma/client"
-import ProtectRoute from "@lib/ProtectedRoute" 
+import ProtectRoute from "@lib/ProtectedRoute"
 interface IProps {
     auth: {
         status: "SIGNED_IN" | "SIGNED_OUT"
@@ -24,7 +24,7 @@ function MyApp({ Component, pageProps, auth }: AppProps & IProps) {
     )
 }
 
-MyApp.getInitialProps = async (appContext : any) => {
+MyApp.getInitialProps = async (appContext: any) => {
     const appProps = await App.getInitialProps(appContext)
     const auth = await getUser(appContext.ctx)
     return { ...appProps, auth: auth }

@@ -2,7 +2,12 @@ import { Course, faculty, LearningObjective } from "@prisma/client"
 import { MouseEventHandler } from "react"
 type IProps = Omit<
     Course,
-    "courseId" | "major" | "academicyear" | "createdAt" | "accessCode" | "instructorId"
+    | "courseId"
+    | "major"
+    | "academicyear"
+    | "createdAt"
+    | "accessCode"
+    | "instructorId"
 > & { instructor: faculty } & { learningObjectives: LearningObjective } & {
     handleClick: MouseEventHandler<HTMLButtonElement>
 }
@@ -35,7 +40,7 @@ export default function StudentCourses({
                     </p>
                     <button
                         type='button'
-                        onClick ={handleClick}
+                        onClick={handleClick}
                         className=' inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold'>
                         View Activities
                     </button>

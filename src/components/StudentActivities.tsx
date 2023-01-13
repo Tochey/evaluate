@@ -4,7 +4,10 @@ import { Activity } from "@prisma/client"
 type IProps = Omit<Activity, "courseId" | "availablefrom"> & {
     isAvailable: boolean
 }
-type CourseMouseEventHandler = (event: React.MouseEvent<HTMLButtonElement>, activityId: string) => void;
+type CourseMouseEventHandler = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    activityId: string
+) => void
 export default function StudentActivities({
     topic,
     points,
@@ -14,8 +17,8 @@ export default function StudentActivities({
     activityId,
 }: IProps) {
     const router = useRouter()
-   
-    const handleClick : CourseMouseEventHandler = (e, activityId) => {
+
+    const handleClick: CourseMouseEventHandler = (e, activityId) => {
         e.preventDefault()
         router.push(`${router.asPath}/activity/${activityId}`)
     }
