@@ -4,6 +4,7 @@ import { Activity } from "@prisma/client"
 type IProps = Omit<Activity, "courseId" | "availablefrom"> & {
     isAvailable: boolean
 }
+type CourseMouseEventHandler = (event: React.MouseEvent<HTMLButtonElement>, activityId: string) => void;
 export default function StudentActivities({
     topic,
     points,
@@ -13,9 +14,10 @@ export default function StudentActivities({
     activityId,
 }: IProps) {
     const router = useRouter()
-
-    const handleClick = (e: string) => {
-        router.push(`${router.asPath}/activity/${e}`)
+   
+    const handleClick : CourseMouseEventHandler = (e, activityId) => {
+        e.preventDefault()
+        router.push(`${router.asPath}/activity/${activityId}`)
     }
     return (
         <div className='max-w-sm overflow-hidden rounded border-x border-secondary bg-primary text-secondary shadow-lg'>
@@ -41,7 +43,7 @@ export default function StudentActivities({
                             ? "hover:bg-secondary hover:font-bold"
                             : " cursor-not-allowed"
                     }`}
-                    onClick={() => handleClick(activityId)}
+                    onClick={(e) => handleClick(e, activityId)}
                     disabled={isAvailable ? false : true}>
                     {isAvailable ? "Start" : "Graded"}
                 </button>

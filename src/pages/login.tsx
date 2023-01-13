@@ -7,7 +7,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next"
 export default function StudentLogin() {
     const router = useRouter()
     const [data, setData] = useState({ email: "", password: "" })
-    const [error, setError] = useState("")
+    const [error, setError] = useState<string>("")
     const { studentLogin } = useAuth()
 
     const handleStudentChange: (
@@ -29,7 +29,8 @@ export default function StudentLogin() {
             error?.response.status >= 400 &&
             error?.response.status <= 500
         ) {
-            setError(error.response.data)
+
+            setError(error.response.data as string)
         }
     }
 

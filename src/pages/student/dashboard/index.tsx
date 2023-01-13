@@ -1,10 +1,10 @@
 import api from "@lib/api"
 import { getUser, useAuth } from "@lib/AuthContext"
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { MouseEventHandler, useState } from "react"
 import StudentCourses from "@components/StudentCourses"
 import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
-import { Course, faculty, LearningObjective } from "@prisma/client"
+import { Course, faculty, LearningObjective, Student } from "@prisma/client"
 interface IProps {
     courses: Array<
         Course & { instructor: faculty } & {
@@ -12,14 +12,19 @@ interface IProps {
         }
     >
 }
+type CourseMouseEventHandler = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    course: string
+) => void
+
 export default function Home({ courses }: IProps) {
     const { auth } = useAuth()
     const router = useRouter()
     const [accessCode, setAccessCode] = useState("")
     const [error, setError] = useState("")
     const {
-        user: { username, sid },
-    } = auth
+        user: { sid, username },
+    } = auth as { user: Pick<Student, "username" | "sid"> }
 
     const handleChange: (
         event: React.ChangeEvent<HTMLInputElement>
@@ -50,8 +55,8 @@ export default function Home({ courses }: IProps) {
             }
         }
     }
-
-    const handleClick = (courseId: string) => {
+    const handleClick: CourseMouseEventHandler = (e, courseId) => {
+        e.preventDefault()
         router.push(`/student/courses/${courseId}`)
     }
 
@@ -75,9 +80,11 @@ export default function Home({ courses }: IProps) {
                                         coursename={course.coursename}
                                         academicterm={course.academicterm}
                                         instructor={course.instructor}
-                                        lOBJ={course.learningObjectives[0]}
-                                        handleClick={() =>
-                                            handleClick(course.courseId)
+                                        learningObjectives={
+                                            course.learningObjectives[0]
+                                        }
+                                        handleClick={(e) =>
+                                            handleClick(e, course.courseId)
                                         }
                                     />
                                 )

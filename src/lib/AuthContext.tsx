@@ -1,18 +1,51 @@
 import { useContext, createContext } from "react"
 import { useRouter } from "next/router"
 import api from "./api"
-import { GetServerSidePropsContext, NextPageContext } from "next"
 import { faculty, Student } from "@prisma/client"
+import { Axios, AxiosError } from "axios"
 
 interface IAuth {
     myAuth: {
         status: "SIGNED_IN" | "SIGNED_OUT"
-        user: Student | faculty | null
+        user: Pick<Student, "username" | "sid"> | faculty | null
     }
     children: (JSX.Element | null)[]
 }
-const AuthContext = createContext({studentRegister: (email: string, username: string, password: string) => Promise<void>, studentLogin: (email: string, password: string) => Promise<void>})
-export const getUser = async (ctx: GetServerSidePropsContext) => {
+interface IAuthContext {
+    auth: {
+        status: "SIGNED_IN" | "SIGNED_OUT"
+        user: Pick<Student, "username" | "sid"> | faculty | null
+    }
+    facultyRegister: facultyRegister
+    studentLogin: studentLogin
+    studentRegister: studentRegister
+    facultyLogin: facultyLogin
+}
+
+type facultyRegister = (
+    facultyId: string,
+    firstName: string,
+    lastName: string,
+    password: string
+) => Promise<void | AxiosError>
+
+type facultyLogin = (facultyId: string, password: string) => Promise<void | AxiosError>
+type studentRegister = (
+    email: string,
+    password: string,
+    username: string
+) => Promise<void | AxiosError>
+type studentLogin = (email: string, password: string) => Promise<void | AxiosError>
+
+const AuthContext = createContext<IAuthContext>({
+    auth: { status: "SIGNED_OUT", user: null },
+    facultyRegister: async () => {},
+    studentLogin: async () => {},
+    studentRegister: async () => {},
+    facultyLogin: async () => {},
+})
+
+export const getUser = async (ctx: any) => {
     const { req } = ctx
     const isServer = !!req
     const cookies = isServer ? req?.headers.cookie : undefined
@@ -36,10 +69,11 @@ export const getUser = async (ctx: GetServerSidePropsContext) => {
             return { status: "SIGNED_OUT", user: null }
         })
 }
+
 export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
     const router = useRouter()
-    const auth = myAuth || { status: "SIGNED_OUT", user: null, children: [] }
-    const studentLogin = async (email: string, password: string) => {
+    const auth = myAuth || { status: "SIGNED_OUT", user: null }
+    const studentLogin: studentLogin = async (email, password) => {
         const data = {
             email,
             password,
@@ -51,14 +85,11 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
             .then(() => {
                 router.push("/student/dashboard")
             })
-            .catch((error) => {
+            .catch((error : AxiosError) => {
                 return error
             })
     }
-    const facultyLogin = async (
-        facultyId: string,
-        password: string
-    ): Promise<void> => {
+    const facultyLogin: facultyLogin = async (facultyId, password) => {
         const data = {
             facultyId,
             password,
@@ -70,15 +101,15 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
             .then(() => {
                 router.push("/faculty/dashboard")
             })
-            .catch((error) => {
-                console.error("Incorrect email or password entered.")
+            .catch((error : AxiosError) => {
+                return error
             })
     }
-    const studentRegister = async (
-        email: string,
-        username: string,
-        password: string
-    ): Promise<void> => {
+    const studentRegister: studentRegister = async (
+        email,
+        username,
+        password
+    ) => {
         const data = {
             email,
             username,
@@ -91,17 +122,17 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
             .then(() => {
                 router.push("/login")
             })
-            .catch(function (error) {
+            .catch((error : AxiosError) => {
                 return error
             })
     }
 
-    const facultyRegister = async (
-        facultyId: string,
-        firstName: string,
-        lastName: string,
-        password: string
-    ): Promise<void> => {
+    const facultyRegister: facultyRegister = async (
+        facultyId,
+        firstName,
+        lastName,
+        password
+    ) => {
         const data = {
             facultyId,
             firstName,
@@ -113,14 +144,14 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
                 withCredentials: true,
             })
             .then(function (error: any) {
-                console.log(error.message)
+                console.error(`Something went wrong ${error}`)
             })
     }
 
     return (
         <AuthContext.Provider
             value={{
-                myAuth,
+                auth,
                 facultyRegister,
                 studentRegister,
                 studentLogin,
