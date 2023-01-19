@@ -23,7 +23,8 @@
         "./tsconfig.paths.json",
         "src/components/codeMirror.tsx",
         "src/pages/_app.tsx",
-        "src/pages/student/courses/[courseId]/activity/[activityId].tsx"
-, "postcss.config.js"    ],
+        "src/pages/student/courses/[courseId]/activity/[activityId].tsx",
+        "postcss.config.js"
+    ],
     "exclude": ["node_modules", "infra-as-code"]
 }

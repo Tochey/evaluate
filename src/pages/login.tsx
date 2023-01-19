@@ -3,6 +3,7 @@ import { useRouter } from "next/router"
 import { getUser, useAuth } from "@lib/AuthContext"
 import Login from "@components/Login"
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
+import { Student } from "@prisma/client"
 
 export default function StudentLogin() {
     const router = useRouter()
@@ -55,10 +56,11 @@ export const getServerSideProps: GetServerSideProps = async (
             props: {},
         }
     }
+
     const {
         status,
         user: { role },
-    } = res
+    } = res as {status : string , user : Student}
     if (status === "SIGNED_IN" && role === "STUDENT") {
         return {
             redirect: {

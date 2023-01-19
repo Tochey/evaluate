@@ -13,8 +13,8 @@ Tochi:
 * ui run_code / grade_code feature --done
 * login page v1 --done
 * figure out env situation with aws amplify --done 
-* Refractor/clean up code
-* figure out render patterns for long term (ssr, get static props etc)
+* Refractor/clean up code --done
+* figure out render patterns for long term (ssr, get static props etc) --done
 * work on protected routed for static urls
 * refresh user access tokens - necessary for uninterupted workflows
 * Explore gravatar for user profile pictures

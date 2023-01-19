@@ -2,6 +2,7 @@ import { useContext, createContext } from "react"
 import { useRouter } from "next/router"
 import api from "./api"
 import { faculty, Student } from "@prisma/client"
+import { AxiosError, AxiosResponse } from "axios"
 
 interface IAuth {
     myAuth: {
@@ -44,7 +45,16 @@ const AuthContext = createContext<IAuthContext>({
     facultyLogin: async () => {},
 })
 
-export const getUser = async (ctx: any) => {
+type getUserType = ((ctx: any) => Promise<{
+    status : "SIGNED_IN" | "SIGNED_OUT"
+    user: Student | faculty ;
+} | {
+    status: "SIGNED_IN" | "SIGNED_OUT"
+    user: null;
+}>)
+
+export const getUser  = async (ctx: any) => {
+
     const { req } = ctx
     const isServer = !!req
     const cookies = isServer ? req?.headers.cookie : undefined
@@ -57,14 +67,14 @@ export const getUser = async (ctx: any) => {
         .get("api/auth/me", {
             withCredentials: true,
         })
-        .then(({ data }) => {
+        .then(({ data } :  AxiosResponse<faculty | Student, any>) => {
             if (data) {
                 return { status: "SIGNED_IN", user: data }
             } else {
                 return { status: "SIGNED_OUT", user: null }
             }
         })
-        .catch((error) => {
+        .catch((error : AxiosError) => {
             return { status: "SIGNED_OUT", user: null }
         })
 }

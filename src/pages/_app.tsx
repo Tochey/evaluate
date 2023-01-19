@@ -4,7 +4,7 @@ import { getUser } from "@lib/AuthContext"
 import { AuthProvider } from "@lib/AuthContext"
 import Navbar from "@components/Navbar"
 import { faculty, Student } from "@prisma/client"
-import ProtectRoute from "@lib/ProtectedRoute"
+import ProtectedRoute from "@lib/ProtectedRoute"
 interface IProps {
     auth: {
         status: "SIGNED_IN" | "SIGNED_OUT"
@@ -16,9 +16,7 @@ function MyApp({ Component, pageProps, auth }: AppProps & IProps) {
         <main className=' bg-primary md:px-20 lg:px-40'>
             <AuthProvider myAuth={auth}>
                 {auth.user && <Navbar />}
-                {/* <ProtectRoute> */}
-                <Component {...pageProps} />
-                {/* </ProtectRoute> */}
+                    <Component {...pageProps} />
             </AuthProvider>
         </main>
     )
