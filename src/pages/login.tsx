@@ -51,22 +51,29 @@ export const getServerSideProps: GetServerSideProps = async (
     ctx: GetServerSidePropsContext
 ) => {
     const res = await getUser(ctx)
-    if (res.status === "SIGNED_OUT") {
-        return {
-            props: {},
-        }
-    }
 
-    const {
-        status,
-        user: { role },
-    } = res as { status: string; user: Student }
-    if (status === "SIGNED_IN" && role === "STUDENT") {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/student/dashboard",
-            },
+    if (res.user?.role) {
+        const {
+            status,
+            user: { role },
+        } = res
+
+        if (status === "SIGNED_IN" && role === "STUDENT") {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: "/student/dashboard",
+                },
+            }
+        }
+
+        if (status === "SIGNED_IN" && role === "FACULTY") {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: "/facutly/dashboard",
+                },
+            }
         }
     }
     return {

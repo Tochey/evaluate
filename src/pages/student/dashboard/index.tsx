@@ -1,10 +1,13 @@
+import StudentCourses from "@components/StudentCourses"
 import api from "@lib/api"
 import { getUser, useAuth } from "@lib/AuthContext"
-import { useRouter } from "next/router"
-import { MouseEventHandler, useState } from "react"
-import StudentCourses from "@components/StudentCourses"
-import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
+import {
+    requireStudentAuthentication,
+} from "@lib/requireAuthentication"
 import { Course, faculty, LearningObjective, Student } from "@prisma/client"
+import { useRouter } from "next/router"
+import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
+import { useState } from "react"
 interface IProps {
     courses: Array<
         Course & { instructor: faculty } & {
@@ -121,27 +124,20 @@ export default function Dashboard({ courses }: IProps) {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (
-    ctx: GetServerSidePropsContext
-) => {
-    const { user, status } = await getUser(ctx)
-    if (status == "SIGNED_OUT") {
+export const getServerSideProps = requireStudentAuthentication(
+    async (ctx: GetServerSidePropsContext) => {
+        const { user, status } = await getUser(ctx)
+
+        const {
+            data: { courses },
+        } = await api.post("api/ops/student/read/getStudentCourses", {
+            sid: (user as Student).sid,
+        })
+
         return {
-            redirect: {
-                permanent: false,
-                destination: "/login",
+            props: {
+                courses,
             },
         }
     }
-    const {
-        data: { courses },
-    } = await api.post("api/ops/student/read/getStudentCourses", {
-        sid: user.sid,
-    })
-
-    return {
-        props: {
-            courses,
-        },
-    }
-}
+)

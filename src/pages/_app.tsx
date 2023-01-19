@@ -4,7 +4,6 @@ import { getUser } from "@lib/AuthContext"
 import { AuthProvider } from "@lib/AuthContext"
 import Navbar from "@components/Navbar"
 import { faculty, Student } from "@prisma/client"
-import ProtectedRoute from "@lib/ProtectedRoute"
 interface IProps {
     auth: {
         status: "SIGNED_IN" | "SIGNED_OUT"

@@ -4,7 +4,6 @@ import { Secret, verify } from "jsonwebtoken"
 
 export default async function me(req: NextApiRequest, res: NextApiResponse) {
     const { cookies } = req
-
     const authorization = cookies.evaluate
     if (!authorization) return res.status(403).json("Not Authenticated")
 
@@ -34,6 +33,7 @@ export default async function me(req: NextApiRequest, res: NextApiResponse) {
             return res.status(201).json(faculty)
         }
     } catch (err) {
+        console.log(err)
         return res.status(404).json("Not Authenticated...")
     }
 }

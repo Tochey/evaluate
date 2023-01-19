@@ -1,14 +1,17 @@
 import StudentActivities from "@components/StudentActivities"
 import api from "@lib/api"
 import { getUser } from "@lib/AuthContext"
-import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
+import { requireStudentAuthentication } from "@lib/requireAuthentication"
+
 import {
-    Course,
-    Submission,
-    faculty,
     Activity,
     CodingActivity,
+    Course,
+    faculty,
+    Student,
+    Submission,
 } from "@prisma/client"
+import { GetServerSideProps } from "next/types"
 
 interface IProps {
     courseInfo: Course & { instructor: faculty } & {
@@ -71,43 +74,33 @@ export default function Index({ courseInfo, submissions }: IProps) {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (
-    ctx: GetServerSidePropsContext
-) => {
-    const {
-        user: { sid },
-    } = await getUser(ctx)
-    const regexExp =
-        /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi
-    const { courseId } = ctx.query
-    1
-    if (!regexExp.test(courseId as string)) {
+export const getServerSideProps = requireStudentAuthentication(
+    async (ctx) => {
+        const {
+            user
+        } = await getUser(ctx)
+        const { courseId } = ctx.query
+
+        let res = await api.get(`api/ops/course/read/${courseId}`)
+        const courseInfo = res.data
+
+        res = await api.get(`api/ops/student/read/submissions/${(user as Student).sid}`)
+        const submissions = res.data.submissions
+
+        if (!courseInfo) {
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: "/student/404",
+                },
+            }
+        }
+
         return {
-            redirect: {
-                permanent: false,
-                destination: "/student/404",
+            props: {
+                courseInfo,
+                submissions,
             },
         }
     }
-    let res = await api.get(`api/ops/course/read/${courseId}`)
-    const courseInfo = res.data
-
-    res = await api.get(`api/ops/student/read/submissions/${sid}`)
-    const submissions = res.data.submissions
-
-    if (!courseInfo) {
-        return {
-            redirect: {
-                permanent: false,
-                destination: "/student/404",
-            },
-        }
-    }
-
-    return {
-        props: {
-            courseInfo,
-            submissions,
-        },
-    }
-}
+)

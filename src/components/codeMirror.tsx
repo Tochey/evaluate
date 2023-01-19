@@ -126,6 +126,7 @@ export default function CodeUi({
             setIsLoading(false)
         }
     }
+
     useEffect(() => {
         const res = localStorage.getItem(codingActivityId)
 

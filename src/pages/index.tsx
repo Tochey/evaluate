@@ -2,6 +2,7 @@ import Head from "next/head"
 import Link from "next/link"
 import { TfiCommentAlt } from "react-icons/tfi"
 import { Inter } from "@next/font/google"
+import { getUser } from "@lib/AuthContext"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -34,3 +35,4 @@ export default function Home() {
         </div>
     )
 }
+

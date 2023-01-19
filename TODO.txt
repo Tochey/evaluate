@@ -15,12 +15,12 @@ Tochi:
 * figure out env situation with aws amplify --done 
 * Refractor/clean up code --done
 * figure out render patterns for long term (ssr, get static props etc) --done
-* work on protected routed for static urls
-* refresh user access tokens - necessary for uninterupted workflows
-* Explore gravatar for user profile pictures
-* refer to leetcode and hackerrank for better editor experience
+* work on protected routes --done
+* ssr cookie to persist info ( user's code and preferences) --done, not needed. (can revisit)
 * build out faculty side
-* ssr cookie to persist info ( user's code and preferences)
+* Explore gravatar for user profile pictures
+* refresh user access tokens - necessary for uninterupted workflows
+* refer to leetcode and hackerrank for better editor experience
 * write testRunner to /tmp dir in dockerfile then copy to dir on every subsequent use case
 * profile page with personalized statistics
 
