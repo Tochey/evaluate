@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps, auth }: AppProps & IProps) {
         <main className=' bg-primary md:px-20 lg:px-40'>
             <AuthProvider myAuth={auth}>
                 {auth.user && <Navbar />}
-                    <Component {...pageProps} />
+                <Component {...pageProps} />
             </AuthProvider>
         </main>
     )

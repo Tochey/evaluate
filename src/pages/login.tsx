@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps = async (
     const {
         status,
         user: { role },
-    } = res as {status : string , user : Student}
+    } = res as { status: string; user: Student }
     if (status === "SIGNED_IN" && role === "STUDENT") {
         return {
             redirect: {

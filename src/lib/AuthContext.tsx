@@ -45,16 +45,18 @@ const AuthContext = createContext<IAuthContext>({
     facultyLogin: async () => {},
 })
 
-type getUserType = ((ctx: any) => Promise<{
-    status : "SIGNED_IN" | "SIGNED_OUT"
-    user: Student | faculty ;
-} | {
-    status: "SIGNED_IN" | "SIGNED_OUT"
-    user: null;
-}>)
+type getUserType = (ctx: any) => Promise<
+    | {
+          status: "SIGNED_IN" | "SIGNED_OUT"
+          user: Student | faculty
+      }
+    | {
+          status: "SIGNED_IN" | "SIGNED_OUT"
+          user: null
+      }
+>
 
-export const getUser  = async (ctx: any) => {
-
+export const getUser = async (ctx: any) => {
     const { req } = ctx
     const isServer = !!req
     const cookies = isServer ? req?.headers.cookie : undefined
@@ -67,14 +69,14 @@ export const getUser  = async (ctx: any) => {
         .get("api/auth/me", {
             withCredentials: true,
         })
-        .then(({ data } :  AxiosResponse<faculty | Student, any>) => {
+        .then(({ data }: AxiosResponse<faculty | Student, any>) => {
             if (data) {
                 return { status: "SIGNED_IN", user: data }
             } else {
                 return { status: "SIGNED_OUT", user: null }
             }
         })
-        .catch((error : AxiosError) => {
+        .catch((error: AxiosError) => {
             return { status: "SIGNED_OUT", user: null }
         })
 }
