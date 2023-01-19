@@ -2,6 +2,7 @@ import { useState } from "react"
 import { getUser, useAuth } from "@lib/AuthContext"
 import Register from "@components/Register"
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
+import { Student } from "@prisma/client"
 
 export default function StudentRegister() {
     const [data, setData] = useState({ email: "", username: "", password: "" })
@@ -53,7 +54,7 @@ export const getServerSideProps: GetServerSideProps = async (
     const {
         status,
         user: { role },
-    } = res
+    } = res as{ status: string; user: Student }
     if (status === "SIGNED_IN" && role === "STUDENT") {
         return {
             redirect: {
