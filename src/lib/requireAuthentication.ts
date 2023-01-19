@@ -1,7 +1,7 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next"
 import { getUser } from "./AuthContext"
 
-export function requireStudentAuthentication(gssp : GetServerSideProps) {
+export function requireStudentAuthentication(gssp: GetServerSideProps) {
     return async (context: GetServerSidePropsContext) => {
         const res = await getUser(context)
 

@@ -5,10 +5,14 @@ import { requireStudentAuthentication } from "@lib/requireAuthentication"
 import { Activity, CodingActivity, Student } from "@prisma/client"
 interface IProps {
     activities: Activity & { codingActivity: CodingActivity }
-    sid: string,
-    rememberMeCode : string
+    sid: string
+    rememberMeCode: string
 }
-export default function StudentActivity({ activities, sid, rememberMeCode }: IProps) {
+export default function StudentActivity({
+    activities,
+    sid,
+    rememberMeCode,
+}: IProps) {
     const {
         numofattempts,
         codingActivity: { codingactivityId, question, language, skeletonCode },
@@ -38,16 +42,14 @@ export default function StudentActivity({ activities, sid, rememberMeCode }: IPr
     )
 }
 
-export const getServerSideProps =
-    requireStudentAuthentication(async (ctx) => {
-        const { user } = await getUser(ctx)
-        const sid = (user as Student).sid
-        const { activityId } = ctx.query
-        let res = await api.get(`api/ops/activity/read/${activityId}`)
-        const activities = res.data
-       
+export const getServerSideProps = requireStudentAuthentication(async (ctx) => {
+    const { user } = await getUser(ctx)
+    const sid = (user as Student).sid
+    const { activityId } = ctx.query
+    let res = await api.get(`api/ops/activity/read/${activityId}`)
+    const activities = res.data
 
-        return {
-            props: { activities, sid},
-        }
-    })
+    return {
+        props: { activities, sid },
+    }
+})

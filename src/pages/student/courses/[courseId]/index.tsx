@@ -74,33 +74,31 @@ export default function Index({ courseInfo, submissions }: IProps) {
     )
 }
 
-export const getServerSideProps = requireStudentAuthentication(
-    async (ctx) => {
-        const {
-            user
-        } = await getUser(ctx)
-        const { courseId } = ctx.query
+export const getServerSideProps = requireStudentAuthentication(async (ctx) => {
+    const { user } = await getUser(ctx)
+    const { courseId } = ctx.query
 
-        let res = await api.get(`api/ops/course/read/${courseId}`)
-        const courseInfo = res.data
+    let res = await api.get(`api/ops/course/read/${courseId}`)
+    const courseInfo = res.data
 
-        res = await api.get(`api/ops/student/read/submissions/${(user as Student).sid}`)
-        const submissions = res.data.submissions
+    res = await api.get(
+        `api/ops/student/read/submissions/${(user as Student).sid}`
+    )
+    const submissions = res.data.submissions
 
-        if (!courseInfo) {
-            return {
-                redirect: {
-                    permanent: false,
-                    destination: "/student/404",
-                },
-            }
-        }
-
+    if (!courseInfo) {
         return {
-            props: {
-                courseInfo,
-                submissions,
+            redirect: {
+                permanent: false,
+                destination: "/student/404",
             },
         }
     }
-)
+
+    return {
+        props: {
+            courseInfo,
+            submissions,
+        },
+    }
+})

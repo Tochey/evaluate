@@ -1,9 +1,7 @@
 import StudentCourses from "@components/StudentCourses"
 import api from "@lib/api"
 import { getUser, useAuth } from "@lib/AuthContext"
-import {
-    requireStudentAuthentication,
-} from "@lib/requireAuthentication"
+import { requireStudentAuthentication } from "@lib/requireAuthentication"
 import { Course, faculty, LearningObjective, Student } from "@prisma/client"
 import { useRouter } from "next/router"
 import { GetServerSideProps, GetServerSidePropsContext } from "next/types"
