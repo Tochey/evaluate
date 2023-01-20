@@ -21,7 +21,7 @@ interface IProps {
 }
 export default function Index({ courseInfo, submissions }: IProps) {
     const {
-        instructor: { firstName, lastName },
+        instructor: { fullName },
         activities,
     } = courseInfo
 

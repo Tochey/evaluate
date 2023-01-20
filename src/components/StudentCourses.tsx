@@ -29,7 +29,7 @@ export default function StudentCourses({
                         Instructor:
                         <span className='uppercase text-secondary'>
                             {" "}
-                            {instructor.firstName} {instructor.lastName}
+                            {instructor.fullName}
                         </span>
                     </h5>
                     <p className='text-md font-bold text-white'>

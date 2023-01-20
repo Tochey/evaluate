@@ -10,14 +10,13 @@ export default async function createFacultyCredentials(
     const error = facultyCredentialsValidation(req.body)
     if (error) return res.status(400).send(error)
 
-    const { facultyId, firstName, lastName, password } = req.body
+    const { facultyId, fullname, password } = req.body
 
     try {
         const newFaculty = await prisma.faculty.create({
             data: {
                 facultyId: facultyId,
-                firstName: firstName,
-                lastName: lastName,
+                fullName : fullname,
                 password: await hashPassword(password),
             },
         })

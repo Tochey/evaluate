@@ -67,7 +67,7 @@ export default function Dashboard({ courses }: IProps) {
                 <>
                     <h1 className='text-center text-xl font-bold text-white md:text-start'>
                         Welcome{" "}
-                        <span className='font-bold uppercase text-secondary'>
+                        <span className='font-bold text-secondary'>
                             {username}
                         </span>
                         , Here are your courses:{" "}

@@ -25,8 +25,7 @@ export default async function getStudentCourses(
                         },
                         instructor: {
                             select: {
-                                firstName: true,
-                                lastName: true,
+                                fullName: true,
                             },
                         },
                     },

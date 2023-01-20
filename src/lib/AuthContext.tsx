@@ -7,14 +7,14 @@ import { AxiosError, AxiosResponse } from "axios"
 interface IAuth {
     myAuth: {
         status: "SIGNED_IN" | "SIGNED_OUT"
-        user: Pick<Student, "username" | "sid"> | faculty | null
+        user: Student | faculty | null
     }
     children: (JSX.Element | null)[]
 }
 interface IAuthContext {
     auth: {
         status: "SIGNED_IN" | "SIGNED_OUT"
-        user: Pick<Student, "username" | "sid"> | faculty | null
+        user: Student | faculty | null
     }
     facultyRegister: facultyRegister
     studentLogin: studentLogin
@@ -24,14 +24,14 @@ interface IAuthContext {
 
 type facultyRegister = (
     facultyId: string,
-    firstName: string,
-    lastName: string,
+    fullName : string,
     password: string
 ) => Promise<void | any>
 
 type facultyLogin = (facultyId: string, password: string) => Promise<void | any>
 type studentRegister = (
     email: string,
+    fullName : string,
     password: string,
     username: string
 ) => Promise<void | any>
@@ -45,16 +45,16 @@ const AuthContext = createContext<IAuthContext>({
     facultyLogin: async () => {},
 })
 
-type getUserType = (ctx: any) => Promise<
-    | {
-          status: "SIGNED_IN" | "SIGNED_OUT"
-          user: Student | faculty
-      }
-    | {
-          status: "SIGNED_IN" | "SIGNED_OUT"
-          user: null
-      }
->
+// type getUserType = (ctx: any) => Promise<
+//     | {
+//           status: "SIGNED_IN" | "SIGNED_OUT"
+//           user: Student | faculty
+//       }
+//     | {
+//           status: "SIGNED_IN" | "SIGNED_OUT"
+//           user: null
+//       }
+// >
 
 export const getUser = async (ctx: any) => {
     const { req } = ctx
@@ -119,13 +119,16 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
     const studentRegister: studentRegister = async (
         email,
         username,
-        password
+        password,
+        fullname, 
     ) => {
         const data = {
             email,
             username,
             password,
+            fullname
         }
+        console.log(data)
         return await api
             .post("api/auth/student/signup", data, {
                 withCredentials: true,
@@ -140,14 +143,12 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
 
     const facultyRegister: facultyRegister = async (
         facultyId,
-        firstName,
-        lastName,
+       fullName,
         password
     ) => {
         const data = {
             facultyId,
-            firstName,
-            lastName,
+            fullName,
             password,
         }
         return await api

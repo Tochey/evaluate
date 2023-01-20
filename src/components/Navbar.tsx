@@ -2,8 +2,14 @@ import { BsFillMoonStarsFill } from "react-icons/bs"
 import Cookies from "js-cookie"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import Image from "next/image"
+import { useAuth } from "@lib/AuthContext"
+import { faculty, Student } from "@prisma/client"
+
 export default function Navbar() {
     const router = useRouter()
+    const {auth} = useAuth()
+
     return (
         <section className=''>
             <nav className='md:py mb-10 flex justify-evenly py-7'>
@@ -13,6 +19,14 @@ export default function Navbar() {
                 <ul className='flex items-center gap-10'>
                     <li>
                         <BsFillMoonStarsFill className='cursor-pointer text-2xl text-secondary' />
+                    </li>
+                    <li>
+                        <Image
+                            src={`https://api.dicebear.com/5.x/adventurer/svg?seed=${auth.user!.role === "STUDENT" ?  (auth.user as Student).fullName : (auth.user as faculty).fullName}`}  
+                            alt='avatar'
+                            width={50}
+                            height={50}
+                        />
                     </li>
                     <li>
                         <Link

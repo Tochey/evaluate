@@ -12,6 +12,7 @@ model Student {
   sid         String       @id @default(uuid())
   email       String       @unique
   username    String       @unique
+  fullName   String
   password    String
   role        ROLE         @default(STUDENT)
   isEnabled   Boolean      @default(false)
@@ -26,8 +27,7 @@ model Student {
 model faculty {
   fid       String   @id @default(uuid())
   facultyId String   @unique
-  firstName String
-  lastName  String
+  fullName  String
   role      ROLE     @default(FACULTY)
   createdAt DateTime @default(now())
   password  String
@@ -46,7 +46,7 @@ model Course {
   createdAt          DateTime            @default(now())
   accessCode         String              @unique @default(uuid())
   students           Student[]
-  instructor         faculty             @relation(fields: [instructorId], references: [fid])
+  instructor         faculty             @relation(fields: [instructorId], references: [fid], onDelete: Cascade)
   activities         Activity[]
   learningObjectives LearningObjective[]
   instructorId       String

@@ -11,12 +11,13 @@ export default async function handler(
     const error = studentSignupValidation(req.body)
     if (error) return res.status(400).send(error)
 
-    const { username, email, password } = req.body
+    const { fullname , username, email, password } = req.body
 
     try {
         if (await _isAvailable(email)) {
             const newStudent = await prisma.student.create({
                 data: {
+                    fullName : fullname,
                     email: email,
                     username: username,
                     password: await hashPassword(password),

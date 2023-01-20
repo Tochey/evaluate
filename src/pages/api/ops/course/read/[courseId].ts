@@ -21,8 +21,7 @@ export default async function getCourseById(
                 },
                 instructor: {
                     select: {
-                        firstName: true,
-                        lastName: true,
+                        fullName: true,
                     },
                 },
                 activities: {

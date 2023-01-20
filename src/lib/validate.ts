@@ -4,10 +4,15 @@ const z = require("zod")
 
 export function studentSignupValidation(data: {}) {
     const registerValidationSchema = z.object({
+        fullname : z
+        .string()
+        .min(5, "Please Enter your full name")
+        .max(32, "Fullname is too long")
+        .trim(),
         username: z
             .string()
-            .min(5, "Username must be 6 characters or more")
-            .max(32, "Username is too long")
+            .min(4, "Username must be 4 characters or more")
+            .max(12, "Username is too long")
             .trim(),
         email: z
             .string()
@@ -46,8 +51,7 @@ export function studentLoginValidation(data: string) {
 export function facultyCredentialsValidation(data: string) {
     const registerValidationSchema = z.object({
         facultyId: z.string().length(4, "Invalid faculty Id").trim(),
-        firstName: z.string().trim(),
-        lastName: z.string().trim(),
+        fullname : z.string().trim(),
         password: z
             .string()
             .min(8, "Password must be 8 or more characters")
