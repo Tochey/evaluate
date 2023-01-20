@@ -24,14 +24,14 @@ interface IAuthContext {
 
 type facultyRegister = (
     facultyId: string,
-    fullName : string,
+    fullName: string,
     password: string
 ) => Promise<void | any>
 
 type facultyLogin = (facultyId: string, password: string) => Promise<void | any>
 type studentRegister = (
     email: string,
-    fullName : string,
+    fullName: string,
     password: string,
     username: string
 ) => Promise<void | any>
@@ -120,13 +120,13 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
         email,
         username,
         password,
-        fullname, 
+        fullname
     ) => {
         const data = {
             email,
             username,
             password,
-            fullname
+            fullname,
         }
         console.log(data)
         return await api
@@ -143,7 +143,7 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
 
     const facultyRegister: facultyRegister = async (
         facultyId,
-       fullName,
+        fullName,
         password
     ) => {
         const data = {

@@ -5,14 +5,18 @@ import { GetServerSideProps, GetServerSidePropsContext } from "next"
 import { Student } from "@prisma/client"
 
 export default function StudentRegister() {
-    const [data, setData] = useState({ email: "", username: "", password: "" , fullname : ""})
+    const [data, setData] = useState({
+        email: "",
+        username: "",
+        password: "",
+        fullname: "",
+    })
     const [error, setError] = useState("")
     const { studentRegister } = useAuth()
 
     const handleChange: (
         event: React.ChangeEvent<HTMLInputElement>
     ) => void = ({ currentTarget: input }) => {
-        
         setData({ ...data, [input.name]: input.value })
     }
 
@@ -20,8 +24,8 @@ export default function StudentRegister() {
         HTMLButtonElement
     > = async (e) => {
         e.preventDefault()
-      
-        const { email, username, password, fullname} = data
+
+        const { email, username, password, fullname } = data
 
         const error = await studentRegister(email, username, password, fullname)
 

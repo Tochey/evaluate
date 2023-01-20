@@ -8,7 +8,7 @@ import { faculty, Student } from "@prisma/client"
 
 export default function Navbar() {
     const router = useRouter()
-    const {auth} = useAuth()
+    const { auth } = useAuth()
 
     return (
         <section className=''>
@@ -22,7 +22,11 @@ export default function Navbar() {
                     </li>
                     <li>
                         <Image
-                            src={`https://api.dicebear.com/5.x/adventurer/svg?seed=${auth.user!.role === "STUDENT" ?  (auth.user as Student).fullName : (auth.user as faculty).fullName}`}  
+                            src={`https://api.dicebear.com/5.x/adventurer/svg?seed=${
+                                auth.user!.role === "STUDENT"
+                                    ? (auth.user as Student).fullName
+                                    : (auth.user as faculty).fullName
+                            }`}
                             alt='avatar'
                             width={50}
                             height={50}

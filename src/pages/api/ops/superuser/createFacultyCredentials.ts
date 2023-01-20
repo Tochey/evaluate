@@ -16,7 +16,7 @@ export default async function createFacultyCredentials(
         const newFaculty = await prisma.faculty.create({
             data: {
                 facultyId: facultyId,
-                fullName : fullname,
+                fullName: fullname,
                 password: await hashPassword(password),
             },
         })
