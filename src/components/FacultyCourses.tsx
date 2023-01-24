@@ -8,6 +8,7 @@ import { BsFillPersonFill } from "react-icons/bs"
 import { FiEdit } from "react-icons/fi"
 import api from "@lib/api"
 import Link from "next/link"
+import { useRouter } from "next/router"
 type IProps = Pick<
     Course,
     "coursename" | "accessCode" | "academicyear" | "courseId"
@@ -22,6 +23,7 @@ export default function FacultyCourses({
     numOfStudents,
 }: IProps) {
     const [isClicked, setIsClicked] = useState(false)
+    const router = useRouter()
 
     const handleCourseDelete: React.MouseEventHandler<SVGElement> = async (
         e
@@ -68,7 +70,7 @@ export default function FacultyCourses({
                 <div className=' '>
                     <ul className='flex items-center gap-10 text-secondary'>
                         <li>
-                            <FiEdit className=' h-6 w-6' />
+                            <FiEdit className=' h-6 w-6' onClick={() => router.push(`/faculty/courses/${courseId}/edit`) } />
                         </li>
                         {isClicked ? (
                             <li className='flex gap-10'>

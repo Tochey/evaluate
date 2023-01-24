@@ -4,15 +4,14 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      =  env("DATABASE_URL")
- 
+  url      = env("DATABASE_URL")
 }
 
 model Student {
   sid         String       @id @default(uuid())
   email       String       @unique
   username    String       @unique
-  fullName   String
+  fullName    String
   password    String
   role        ROLE         @default(STUDENT)
   isEnabled   Boolean      @default(false)
@@ -38,17 +37,17 @@ model faculty {
 }
 
 model Course {
-  courseId           String              @id @default(uuid())
-  major              String              @default("Computer Science")
-  coursename         String              @unique
+  courseId           String             @id @default(uuid())
+  major              String             @default("Computer Science")
+  coursename         String             @unique
   academicyear       String
   academicterm       String
-  createdAt          DateTime            @default(now())
-  accessCode         String              @unique @default(uuid())
+  createdAt          DateTime           @default(now())
+  accessCode         String             @unique @default(uuid())
   students           Student[]
-  instructor         faculty             @relation(fields: [instructorId], references: [fid], onDelete: Cascade)
+  instructor         faculty            @relation(fields: [instructorId], references: [fid], onDelete: Cascade)
   activities         Activity[]
-  learningObjectives LearningObjective[]
+  learningObjectives LearningObjective?
   instructorId       String
 
   @@index([courseId])
@@ -57,8 +56,8 @@ model Course {
 model LearningObjective {
   learningObjId String    @id @default(uuid())
   description   String
-  course        Course?   @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
-  courseId      String?
+  course        Course    @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+  courseId      String    @unique
   activity      Activity? @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
   activityId    String?
 
@@ -81,7 +80,7 @@ model Activity {
 }
 
 model CodingActivity {
-  codingactivityId String         @id @default(uuid())
+  codingactivityId String              @id @default(uuid())
   question         String              @unique
   language         ProgrammingLanguage
   submissions      Submission[]

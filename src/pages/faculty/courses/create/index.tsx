@@ -48,7 +48,7 @@ export default function CreateCourse() {
                 <div className='mb-6 w-full px-3 md:mb-0 md:w-1/2'>
                     <label
                         className='mb-2 block text-xs font-bold uppercase tracking-wide text-secondary'
-                        htmlFor='grid-first-name'>
+                        htmlFor='coursenamme'>
                         Course Name
                     </label>
                     <input
