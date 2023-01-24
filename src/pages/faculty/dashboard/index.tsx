@@ -28,7 +28,7 @@ export default function FacultyDashboard({ courses }: IProps) {
                 {courses.map((course, index) => {
                     return (
                         <FacultyCourses
-                        key={index}
+                            key={index}
                             courseId={course.courseId}
                             coursename={course.coursename}
                             accessCode={course.accessCode}
