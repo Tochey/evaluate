@@ -18,13 +18,13 @@ Tochi:
 * work on protected routes --done
 * ssr cookie to persist info ( user's code and preferences) --done, not needed. (can revisit)
 * Explore gravatar for user profile pictures --done
-* multiple language support 
 * build out faculty side
+* multiple language support 
 * refer to leetcode and hackerrank for better editor experience
 * write testRunner to /tmp dir in dockerfile then copy to dir on every subsequent use case
 * profile page with personalized statistics
 * possibly add nextjs security headers
-* discuss database delete behavior with nafa 
+* discuss database delete behavior with nafa (onDelete onUpdate)
 * are prisma migration files necessary or can be deleted? - https://www.prisma.io/docs/concepts/components/prisma-migrate
 * fix login error messages (make more readable)
 * refresh user access tokens - necessary for uninterupted workflows https://www.youtube.com/watch?v=16-1mTdGBoM  --postponed (26:50)

@@ -33,7 +33,6 @@ export default async function me(req: NextApiRequest, res: NextApiResponse) {
             return res.status(201).json(faculty)
         }
     } catch (err) {
-        console.log(err)
         return res.status(404).json("Not Authenticated...")
     }
 }

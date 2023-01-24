@@ -1,5 +1,5 @@
 import { Course, faculty, LearningObjective } from "@prisma/client"
-import { MouseEventHandler } from "react"
+import { MouseEventHandler, useState } from "react"
 type IProps = Omit<
     Course,
     | "courseId"

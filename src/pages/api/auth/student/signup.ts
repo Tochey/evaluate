@@ -31,7 +31,6 @@ export default async function handler(
                 message: "email is taken and this account is verified",
             })
     } catch (error: any) {
-        console.log(error)
         return res.status(400).json({
             message: error.message,
         })

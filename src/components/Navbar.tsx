@@ -14,7 +14,11 @@ export default function Navbar() {
         <section className=''>
             <nav className='md:py mb-10 flex justify-evenly py-7'>
                 <h1 className='text-xl font-bold text-secondary '>
-                    <Link href='/student/dashboard'>Evaluate</Link>
+                    {auth.user!.role === "STUDENT" ? (
+                        <Link href='/student/dashboard'>Evaluate</Link>
+                    ) : (
+                        <Link href='/faculty/dashboard'>Evaluate</Link>
+                    )}
                 </h1>
                 <ul className='flex items-center gap-10'>
                     <li>
@@ -22,7 +26,7 @@ export default function Navbar() {
                     </li>
                     <li>
                         <Image
-                            src={`https://api.dicebear.com/5.x/adventurer/svg?seed=${
+                            src={`https://api.dicebear.com/5.x/initials/svg?seed=${
                                 auth.user!.role === "STUDENT"
                                     ? (auth.user as Student).fullName
                                     : (auth.user as faculty).fullName

@@ -8,6 +8,12 @@ const nextConfig = {
                 port: "",
                 pathname: "/5.x/*/svg/**",
             },
+            {
+                protocol: "https",
+                hostname: "picsum.photos",
+                port: "",
+                pathname: "/seed/**",
+            },
         ],
         dangerouslyAllowSVG: true,
     },

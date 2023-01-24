@@ -64,7 +64,8 @@ export default function CodeUi({
             setOutput("")
             await axios
                 .post(
-                    process.env.NEXT_PUBLIC_LAMBDA_RUN_CODE_URL as string,
+                    (process.env.NEXT_PUBLIC_LAMBDA_CODE_EXEC_URL +
+                        "/run-code") as string,
                     data
                 )
                 .then(async ({ data: { result } }) => {
@@ -95,7 +96,8 @@ export default function CodeUi({
             setOutput("")
             await axios
                 .post(
-                    process.env.NEXT_PUBLIC_LAMBDA_GRADE_CODE_URL as string,
+                    (process.env.NEXT_PUBLIC_LAMBDA_CODE_EXEC_URL +
+                        "/submit-code") as string,
                     data
                 )
                 .then(async ({ data: { result } }) => {

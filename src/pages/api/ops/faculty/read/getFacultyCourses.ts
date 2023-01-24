@@ -14,7 +14,14 @@ export default function getFacultyCourses(
                 fid: fid,
             },
             select: {
-                courses: true,
+                courses: {
+                    include: {
+                        students: true,
+                    },
+                    orderBy: {
+                        createdAt: "desc",
+                    },
+                },
             },
         })
     })

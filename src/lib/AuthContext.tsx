@@ -45,17 +45,6 @@ const AuthContext = createContext<IAuthContext>({
     facultyLogin: async () => {},
 })
 
-// type getUserType = (ctx: any) => Promise<
-//     | {
-//           status: "SIGNED_IN" | "SIGNED_OUT"
-//           user: Student | faculty
-//       }
-//     | {
-//           status: "SIGNED_IN" | "SIGNED_OUT"
-//           user: null
-//       }
-// >
-
 export const getUser = async (ctx: any) => {
     const { req } = ctx
     const isServer = !!req
@@ -128,7 +117,6 @@ export const AuthProvider = ({ myAuth, ...props }: IAuth) => {
             password,
             fullname,
         }
-        console.log(data)
         return await api
             .post("api/auth/student/signup", data, {
                 withCredentials: true,

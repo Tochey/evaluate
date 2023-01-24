@@ -23,9 +23,7 @@ export default async function handler(
     if (faculty) {
         const checkPassword = await bcrypt.compare(password, faculty.password)
         if (!checkPassword) {
-            return res.status(401).json({
-                message: "incorrect email or password",
-            })
+            return res.status(401).json("incorrect email or password")
         } else {
             const serialized = serialize(
                 "evaluate",
@@ -40,14 +38,9 @@ export default async function handler(
             )
 
             res.setHeader("Set-Cookie", serialized)
-            return res.status(201).json({
-                message: "login successful",
-                user: faculty,
-            })
+            return res.status(201).json("login successful")
         }
     } else {
-        return res.status(404).json({
-            message: "account does not exist",
-        })
+        return res.status(404).json("account does not exist")
     }
 }

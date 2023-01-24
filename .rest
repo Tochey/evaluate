@@ -67,8 +67,8 @@ POST  {{hostname}}/api/ops/course/create
 Content-Type: application/json
 
 {
-    "coursename" : "Intro to Java",
-    "academicyear" : "Spring 22",
+    "coursename" : "Intro to Ruby on Rails",
+    "academicyear" : "Spring 23",
     "academicterm" : "Fall 22/Spring 23",
     "learningObjectives" : "Understand the core principles of Object Oriented Programming (OOP)",
     "facultyId" : "1234"
