@@ -4,23 +4,23 @@ import { useState } from "react"
 
 export default function FeedBack() {
     const [feedBack, setFeedBack] = useState("")
+    const [isDisabled, setIsDisabled] = useState(false)
     const {
         push,
-        query: { code },
+        query: { prompt },
     } = useRouter()
 
     const generateFeedBack: React.MouseEventHandler<HTMLButtonElement> = async (
         e
     ) => {
         setFeedBack("")
-        // setLoading(true);
         const response = await fetch("/api/feedback", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                prompt: code,
+                prompt: prompt,
             }),
         })
 
@@ -39,6 +39,7 @@ export default function FeedBack() {
         const reader = data.getReader()
         const decoder = new TextDecoder()
         let done = false
+        setIsDisabled(true)
         while (!done) {
             const { value, done: doneReading } = await reader.read()
             done = doneReading
@@ -46,15 +47,22 @@ export default function FeedBack() {
             setFeedBack((prev) => prev + chunkValue)
         }
 
-        setTimeout(() => {
-            push("/student/dashboard")
-        }, 5000)
+        // setTimeout(() => {
+        //     push("/student/dashboard")
+        // }, 10000)
     }
     return (
+        <>
+        <div>
+            <p className="text-secondary font-bold">
+            WARNING: IN BETA
+            </p>
+        </div>
         <div className='flex gap-6'>
             <button
-                className='my-3 inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold'
+                className={`my-3 inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold ${isDisabled ? "cursor-not-allowed" : ""}`}
                 type='button'
+                disabled={isDisabled ? true : false}
                 onClick={(e) => generateFeedBack(e)}>
                 Generate Feedback
             </button>
@@ -70,13 +78,14 @@ export default function FeedBack() {
                 </p>
             )}
         </div>
+        </>
     )
 }
 
 export const getServerSideProps = requireStudentAuthentication(async (ctx) => {
     const query = ctx.query
 
-    if (!query.code) {
+    if (!query.prompt) {
         return {
             redirect: {
                 destination: "/student/dashboard",

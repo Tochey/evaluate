@@ -38,12 +38,12 @@ const handler = async (req: NextRequest): Promise<Response> => {
 
     const payload: OpenAIStreamPayload = {
         model: "text-davinci-003",
-        prompt: `Give me feedback on this code : ${prompt}, ignore the main method`,
-        temperature: 0.2,
+        prompt,
+        temperature: 0.5,
         top_p: 1,
         frequency_penalty: 0,
         presence_penalty: 0,
-        max_tokens: 200,
+        max_tokens: 400,
         stream: true,
         n: 1,
     }

@@ -37,6 +37,7 @@ export default function StudentActivity({
                 codingActivityId={codingactivityId}
                 skeletonCode={skeletonCode}
                 sid={sid}
+                question={question}
             />
         </div>
     )
