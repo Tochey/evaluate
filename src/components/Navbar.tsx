@@ -10,10 +10,6 @@ export default function Navbar() {
     const router = useRouter()
     const { auth } = useAuth()
 
-    if (router.asPath === "/") {
-        return null
-    }
-
     return (
         <section className=''>
             <nav className='md:py mb-10 flex justify-evenly py-7'>
