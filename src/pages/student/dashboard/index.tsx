@@ -122,8 +122,7 @@ export default function Dashboard({ courses }: IProps) {
     )
 }
 
-export const getServerSideProps = requireStudentAuthentication(
-    async (ctx: GetServerSidePropsContext) => {
+export const getServerSideProps =     async (ctx: GetServerSidePropsContext) => {
         const { user, status } = await getUser(ctx)
 
         const {
@@ -138,4 +137,4 @@ export const getServerSideProps = requireStudentAuthentication(
             },
         }
     }
-)
+
