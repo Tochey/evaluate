@@ -122,19 +122,18 @@ export default function Dashboard({ courses }: IProps) {
     )
 }
 
-export const getServerSideProps =     async (ctx: GetServerSidePropsContext) => {
-        const { user, status } = await getUser(ctx)
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+    const { user, status } = await getUser(ctx)
 
-        const {
-            data: { courses },
-        } = await api.post("api/ops/student/read/getStudentCourses", {
-            sid: (user as Student).sid,
-        })
+    const {
+        data: { courses },
+    } = await api.post("api/ops/student/read/getStudentCourses", {
+        sid: (user as Student).sid,
+    })
 
-        return {
-            props: {
-                courses,
-            },
-        }
+    return {
+        props: {
+            courses,
+        },
     }
-
+}
