@@ -39,7 +39,7 @@ export default function Dashboard({ courses }: IProps) {
         e.preventDefault()
         try {
             const { data } = await api.post(
-                `/ops/course/update/enroll/${sid}`,
+                `/api/ops/course/update/enroll/${sid}`,
                 {
                     accessCode: accessCode,
                 }
