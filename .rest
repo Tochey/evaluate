@@ -1,5 +1,6 @@
-@hostname = http://localhost:3000/
+@hostname = https://main.d34qxtpa1jstt.amplifyapp.com 
 # https://main.d34qxtpa1jstt.amplifyapp.com 
+
 # http://localhost:3000/
 
 # --- Authentication ---
@@ -67,7 +68,7 @@ POST  {{hostname}}/api/ops/course/create
 Content-Type: application/json
 
 {
-    "coursename" : "Intro to Ruby on Rails",
+    "coursename" : "Intro to Java",
     "academicyear" : "Spring 23",
     "academicterm" : "Fall 22/Spring 23",
     "learningObjectives" : "Understand the core principles of Object Oriented Programming (OOP)",
@@ -76,11 +77,11 @@ Content-Type: application/json
 
 ###
 
-POST  {{hostname}}/api/ops/course/update/enroll/1e987b94-0f61-448b-9ffe-11f711bbc65d
+POST  {{hostname}}/api/ops/course/update/enroll/4abb7925-b074-4e33-8853-363f982f0948
 Content-Type: application/json
 
 {
-    "accessCode" : "199ac7ca-eb1d-4e6f-9998-3bce5425a28e"
+    "accessCode" : "6a51710c-06c7-47cf-9216-63ea072f4248"
 }
 ### 
 POST  {{hostname}}/api/ops/course/read/getEnrolledStudents/28b7593a-3569-4394-a137-221f5349cbe4
@@ -95,21 +96,21 @@ POST  {{hostname}}/api/ops/activity/create
 Content-Type: application/json
 
 {
-    "topic" : "Sum it up",
+    "topic" : "Average",
     "points" : 20,
     "numofattempts" : 1,
     "availablefrom" : "",
     "availableto" : "",
     "language" : "JAVA",
     "codingActivity" : {
-        "question": "Write a function called (sum) where given an array of integers it returns the sum of the elements in the array"
+        "question": "Write a Java method called (average) that takes an array of integers as a parameter and returns the average of all the integers in the array."
     },
     "learningObjectives": {
         "description" : "Properly learn how to write good code (filler again again)..."
     },
-    "courseId" : "7492e9a8-b937-4de3-84ed-c4490d3ab8f7",
+    "courseId" : "1281f484-2ecb-4452-bfd9-8e01fb9c0b79",
     "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
-    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        Solution solution = new Solution();\n        assertEquals(0, solution.sum(new int[]{}));\n    }\n    @Test\n    public void testAdd2() {\n        Solution solution = new Solution();\n        assertEquals(1, solution.sum(new int[]{1}));\n    }\n    @Test\n    public void testAdd3() {\n        Solution solution = new Solution();\n        assertEquals(15, solution.sum(new int[]{1, 2, 3, 4, 5}));\n    }\n    @Test\n    public void testAdd4() {\n        Solution solution = new Solution();\n        assertEquals(-5, solution.sum(new int[]{-5}));\n    }\n    @Test\n    public void testAdd5() {\n        Solution solution = new Solution();\n        assertEquals(0, solution.sum(new int[]{1, -2, -3, 4}));\n    }\n}"
+    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        Solution solution = new Solution();\n        int[] testArray = {};\n        double expected = 0.0;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n    @Test\n    public void testAdd2() {\n        Solution solution = new Solution();\n        int[] testArray = {-1, -2, -3, -4, -5};\n        double expected = -3.0;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n    @Test\n    public void testAdd3() {\n        Solution solution = new Solution();\n        int[] testArray = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};\n        double expected = (double) Integer.MAX_VALUE;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n    @Test\n    public void testAdd4() {\n        Solution solution = new Solution();\n        int[] testArray = {Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};\n        double expected = (double) Integer.MIN_VALUE;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n  \n}"
 }
 
 ###

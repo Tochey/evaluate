@@ -94,38 +94,36 @@ export default function CodeUi({
             return
         }
         try {
-            // setIsLoading(true)
-            // setOutput("")
-            // await axios
-            //     .post(
-            //         (process.env.NEXT_PUBLIC_LAMBDA_CODE_EXEC_URL +
-            //             "/submit-code") as string,
-            //         data
-            //     )
-            //     .then(async ({ data: { result } }) => {
-            //         result = result.replace(/\n/g, "")
-            //         result = Number(result)
+            setIsLoading(true)
+            setOutput("")
+            await axios
+                .post(
+                    (process.env.NEXT_PUBLIC_LAMBDA_CODE_EXEC_URL +
+                        "/submit-code") as string,
+                    data
+                )
+                .then(async ({ data: { result } }) => {
+                    result = result.replace(/\n/g, "")
+                    result = Number(result)
 
-            //         if (Number.isNaN(result)) {
-            //             result = 0
-            //         }
+                    if (Number.isNaN(result)) {
+                        result = 0
+                    }
 
-            //         const post_data = {
-            //             codingActivityId: codingActivityId,
-            //             score: result.toString(),
-            //             sourceCode: codeActivity,
-            //         }
+                    const post_data = {
+                        codingActivityId: codingActivityId,
+                        score: result.toString(),
+                        sourceCode: codeActivity,
+                    }
 
-            //         await axios.post(
-            //             `/api/ops/student/update/assignGrade/${sid}`,
-            //             post_data
-            //         )
-            //         setIsLoading(false)
-            //         const prompt = `Give me feedback on this code : ${codeActivity}, based on this question ${question}. Ignore the main method and do not give me tthe answer`
-            //         return router.push(`/feedback?prompt=${prompt}`)
-            //     })
-            const prompt = `Give me feedback on this code : ${codeActivity}, based on this question ${question}. Ignore the main method and do not give me tthe answer`
-            return router.push(`/feedback?prompt=${prompt}`)
+                    await axios.post(
+                        `/api/ops/student/update/assignGrade/${sid}`,
+                        post_data
+                    )
+                    setIsLoading(false)
+                    const prompt = `Give me feedback on this code : ${codeActivity}, based on this question ${question}. Ignore the main method and do not give me tthe answer`
+                    return router.push(`/feedback?prompt=${prompt}`)
+                })
         } catch (error) {
             setOutput(
                 "Something went wrong please contact tochey@outlook.com or try again"
