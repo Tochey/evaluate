@@ -125,7 +125,7 @@ export default function CodeUi({
             //         return router.push(`/feedback?prompt=${prompt}`)
             //     })
             const prompt = `Give me feedback on this code : ${codeActivity}, based on this question ${question}. Ignore the main method and do not give me tthe answer`
-                   return router.push(`/feedback?prompt=${prompt}`)
+            return router.push(`/feedback?prompt=${prompt}`)
         } catch (error) {
             setOutput(
                 "Something went wrong please contact tochey@outlook.com or try again"

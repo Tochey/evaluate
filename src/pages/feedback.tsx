@@ -53,31 +53,31 @@ export default function FeedBack() {
     }
     return (
         <>
-        <div>
-            <p className="text-secondary font-bold">
-            WARNING: IN BETA
-            </p>
-        </div>
-        <div className='flex gap-6'>
-            <button
-                className={`my-3 inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold ${isDisabled ? "cursor-not-allowed" : ""}`}
-                type='button'
-                disabled={isDisabled ? true : false}
-                onClick={(e) => generateFeedBack(e)}>
-                Generate Feedback
-            </button>
-            <button
-                className='my-3 inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold'
-                type='button'
-                onClick={(e) => push("/student/dashboard")}>
-                Back to Dashboard
-            </button>
-            {feedBack && (
-                <p className=' font-mono text-lg font-bold text-secondary'>
-                    {feedBack}
-                </p>
-            )}
-        </div>
+            <div>
+                <p className='font-bold text-secondary'>WARNING: IN BETA</p>
+            </div>
+            <div className='flex gap-6'>
+                <button
+                    className={`my-3 inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold ${
+                        isDisabled ? "cursor-not-allowed" : ""
+                    }`}
+                    type='button'
+                    disabled={isDisabled ? true : false}
+                    onClick={(e) => generateFeedBack(e)}>
+                    Generate Feedback
+                </button>
+                <button
+                    className='my-3 inline-block rounded border px-4 py-2 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-secondary hover:font-bold'
+                    type='button'
+                    onClick={(e) => push("/student/dashboard")}>
+                    Back to Dashboard
+                </button>
+                {feedBack && (
+                    <p className=' font-mono text-lg font-bold text-secondary'>
+                        {feedBack}
+                    </p>
+                )}
+            </div>
         </>
     )
 }
