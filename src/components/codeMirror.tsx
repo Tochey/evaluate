@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react"
-import CodeMirror from "@uiw/react-codemirror"
+import { javaDefault } from "@lib/defaults"
 import { langs } from "@uiw/codemirror-extensions-langs"
 import { dracula } from "@uiw/codemirror-themes-all"
-import { javaDefault } from "@lib/defaults"
+import CodeMirror from "@uiw/react-codemirror"
 import axios from "axios"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 interface IProps {
     skeletonCode: string
     language: string
@@ -119,7 +119,7 @@ export default function CodeUi({
                         post_data
                     )
                     setIsLoading(false)
-                    return router.push("/student/dashboard")
+                    return router.push(`/feedback?code=${codeActivity}`)
                 })
         } catch (error) {
             setOutput(

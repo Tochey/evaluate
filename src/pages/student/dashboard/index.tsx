@@ -9,7 +9,7 @@ import { useState } from "react"
 interface IProps {
     courses: Array<
         Course & { instructor: faculty } & {
-            learningObjectives: Array<LearningObjective>
+            learningObjectives: LearningObjective
         }
     >
 }
@@ -82,7 +82,7 @@ export default function Dashboard({ courses }: IProps) {
                                         academicterm={course.academicterm}
                                         instructor={course.instructor}
                                         learningObjectives={
-                                            course.learningObjectives[0]
+                                            course.learningObjectives
                                         }
                                         handleClick={(e) =>
                                             handleClick(e, course.courseId)

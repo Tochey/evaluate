@@ -5,7 +5,7 @@ public class SolutionTest {
     @Test
     public void testAdd1() {
         Solution solution = new Solution();
-        assertTrue(solution.isEven(2, 4));
+        assertTrue(11, solution.addNumber(1, 10));
     }
     @Test
     public void testAdd2() {

@@ -6,7 +6,7 @@ frontend:
                 - npm install
         build:
             commands:
-                - env | grep -e DATABASE_URL -e ACCESS_TOKEN_REFRESH_TIME -e ACCESS_TOKEN_SECRET -e SALT -e PHASE -e NODE_ENV -e PROD_URL >> .env.production
+                - env | grep -e DATABASE_URL -e ACCESS_TOKEN_REFRESH_TIME -e ACCESS_TOKEN_SECRET -e SALT -e PHASE -e NODE_ENV -e PROD_URL -e OPENAI_API_KEY >> .env.production
                 - env | grep -e NEXT_PUBLIC_ >> .env.production
                 - npm run prisma
                 - npm run build

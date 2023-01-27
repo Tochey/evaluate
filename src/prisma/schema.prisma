@@ -56,8 +56,8 @@ model Course {
 model LearningObjective {
   learningObjId String    @id @default(uuid())
   description   String
-  course        Course    @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
-  courseId      String    @unique
+  course        Course?    @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+  courseId      String?   @unique
   activity      Activity? @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
   activityId    String?
 

@@ -105,9 +105,9 @@ Content-Type: application/json
         "question": "Write a function called (sum) where given an array of integers it returns the sum of the elements in the array"
     },
     "learningObjectives": {
-        "description" : "Properly learn how to write good code (filler again again)"
+        "description" : "Properly learn how to write good code (filler again again)..."
     },
-    "courseId" : "f58ba599-24a9-4889-a39e-424721bdfab9",
+    "courseId" : "7492e9a8-b937-4de3-84ed-c4490d3ab8f7",
     "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
     "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        Solution solution = new Solution();\n        assertEquals(0, solution.sum(new int[]{}));\n    }\n    @Test\n    public void testAdd2() {\n        Solution solution = new Solution();\n        assertEquals(1, solution.sum(new int[]{1}));\n    }\n    @Test\n    public void testAdd3() {\n        Solution solution = new Solution();\n        assertEquals(15, solution.sum(new int[]{1, 2, 3, 4, 5}));\n    }\n    @Test\n    public void testAdd4() {\n        Solution solution = new Solution();\n        assertEquals(-5, solution.sum(new int[]{-5}));\n    }\n    @Test\n    public void testAdd5() {\n        Solution solution = new Solution();\n        assertEquals(0, solution.sum(new int[]{1, -2, -3, 4}));\n    }\n}"
 }
@@ -187,3 +187,11 @@ GET {{hostname}}/api/ops/student/read/54c922ec-f46a-4fab-8f8f-dca012f7944d
 #--- Operations ---
 ###
 GET {{hostname}}/api/ops/activity/read/submissions/64b69d82-0bce-4f26-bff8-c65e79c6df3a
+
+
+###
+POST  https://www.twitterbio.com/api/generate
+
+{
+    "prompt": "Write a method called (isEven) that takes in two int parameters and returns TRUE if one of them is an even number else return FALSE",
+}

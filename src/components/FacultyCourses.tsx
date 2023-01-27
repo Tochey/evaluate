@@ -70,7 +70,14 @@ export default function FacultyCourses({
                 <div className=' '>
                     <ul className='flex items-center gap-10 text-secondary'>
                         <li>
-                            <FiEdit className=' h-6 w-6' onClick={() => router.push(`/faculty/courses/${courseId}/edit`) } />
+                            <FiEdit
+                                className=' h-6 w-6'
+                                onClick={() =>
+                                    router.push(
+                                        `/faculty/courses/${courseId}/edit`
+                                    )
+                                }
+                            />
                         </li>
                         {isClicked ? (
                             <li className='flex gap-10'>

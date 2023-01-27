@@ -31,6 +31,11 @@ Tochi:
 * secure rce workers https://github.com/engineer-man/piston
 * secure rce api gateway (auth, rate limit)
 * apply for more lambda concurreny on aws
+*  ---- data ----
+* collect when student last logged in
+* Time spent on activity 
+* last time when the click run and submit
+* how many times they click run 
 
 Backlog
 add allowed domains for cookie 
