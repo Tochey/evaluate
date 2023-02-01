@@ -124,7 +124,7 @@ export default function CodeUi({
                     const prompt = `Give me feedback on this code : ${codeActivity}, besed on this question : ${question}.`
                     router.push({
                         pathname: "/feedback",
-                        query: { prompt : prompt},
+                        query: { prompt: prompt },
                     })
                 })
         } catch (error) {

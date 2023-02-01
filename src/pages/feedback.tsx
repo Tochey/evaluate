@@ -14,7 +14,7 @@ export default function FeedBack() {
         e
     ) => {
         setFeedBack("")
-        console.log(prompt)
+        setIsDisabled(true)
         const response = await fetch("/api/feedback", {
             method: "POST",
             headers: {
@@ -40,7 +40,6 @@ export default function FeedBack() {
         const reader = data.getReader()
         const decoder = new TextDecoder()
         let done = false
-        setIsDisabled(true)
         while (!done) {
             const { value, done: doneReading } = await reader.read()
             done = doneReading
@@ -71,7 +70,7 @@ export default function FeedBack() {
                 </button>
             </div>
             <div>
-            {feedBack && (
+                {feedBack && (
                     <p className=' font-mono text-lg font-bold text-secondary'>
                         {feedBack}
                     </p>
