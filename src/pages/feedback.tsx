@@ -14,6 +14,7 @@ export default function FeedBack() {
         e
     ) => {
         setFeedBack("")
+        console.log(prompt)
         const response = await fetch("/api/feedback", {
             method: "POST",
             headers: {
@@ -46,10 +47,6 @@ export default function FeedBack() {
             const chunkValue = decoder.decode(value)
             setFeedBack((prev) => prev + chunkValue)
         }
-
-        // setTimeout(() => {
-        //     push("/student/dashboard")
-        // }, 10000)
     }
     return (
         <>
@@ -72,7 +69,9 @@ export default function FeedBack() {
                     onClick={(e) => push("/student/dashboard")}>
                     Back to Dashboard
                 </button>
-                {feedBack && (
+            </div>
+            <div>
+            {feedBack && (
                     <p className=' font-mono text-lg font-bold text-secondary'>
                         {feedBack}
                     </p>

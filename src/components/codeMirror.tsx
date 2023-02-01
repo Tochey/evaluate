@@ -121,8 +121,11 @@ export default function CodeUi({
                         post_data
                     )
                     setIsLoading(false)
-                    const prompt = `Give me feedback on this code : ${codeActivity}, based on this question ${question}. Ignore the main method and do not give me tthe answer`
-                    return router.push(`/feedback?prompt=${prompt}`)
+                    const prompt = `Give me feedback on this code : ${codeActivity}, besed on this question : ${question}.`
+                    router.push({
+                        pathname: "/feedback",
+                        query: { prompt : prompt},
+                    })
                 })
         } catch (error) {
             setOutput(

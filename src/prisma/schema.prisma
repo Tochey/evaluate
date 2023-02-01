@@ -87,7 +87,7 @@ model CodingActivity {
   actitvity        Activity            @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
   activityId       String              @unique
   testCases        String
-  skeletonCode     String              @db.VarChar(1000)
+  skeletonCode     String              @db.LongText
 }
 
 model Submission {

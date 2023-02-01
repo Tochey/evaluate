@@ -26,7 +26,7 @@ export default function Navbar() {
                     </li>
                     <li>
                         <Image
-                            src={`https://api.dicebear.com/5.x/initials/svg?seed=${
+                            src={`https://api.dicebear.com/5.x/adventurer/svg?seed=${
                                 auth.user!.role === "STUDENT"
                                     ? (auth.user as Student).fullName
                                     : (auth.user as faculty).fullName

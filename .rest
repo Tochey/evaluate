@@ -1,4 +1,4 @@
-@hostname = https://main.d34qxtpa1jstt.amplifyapp.com 
+@hostname = http://localhost:3000/
 # https://main.d34qxtpa1jstt.amplifyapp.com 
 
 # http://localhost:3000/
@@ -12,9 +12,9 @@ POST  {{hostname}}/api/ops/superuser/createFacultyCredentials
 Content-Type: application/json
 
 {
-    "facultyId" : "1234",
-    "fullname" : "Fatema Nafa",
-    "password" : "fnafa123"
+    "facultyId" : "2345",
+    "fullname" : "Allan Brockenbrough",
+    "password" : "tochi123"
 }
 
 ###
@@ -72,7 +72,7 @@ Content-Type: application/json
     "academicyear" : "Spring 23",
     "academicterm" : "Fall 22/Spring 23",
     "learningObjectives" : "Understand the core principles of Object Oriented Programming (OOP)",
-    "facultyId" : "1234"
+    "facultyId" : "2345"
 }
 
 
@@ -89,21 +89,21 @@ POST  {{hostname}}/api/ops/activity/create
 Content-Type: application/json
 
 {
-    "topic" : "Average",
-    "points" : 20,
+    "topic" : "add me",
+    "points" : 50,
     "numofattempts" : 1,
     "availablefrom" : "",
     "availableto" : "",
     "language" : "JAVA",
     "codingActivity" : {
-        "question": "Write a Java method called (average) that takes an array of integers as a parameter and returns the average of all the integers in the array."
+        "question": "Write a Java method called {addArray} that takes in an integer array as a parameter and returns the sum of all its elements"
     },
     "learningObjectives": {
-        "description" : "Properly learn how to write good code (filler again again)..."
+        "description" : "Properly learn how to write good code ().."
     },
-    "courseId" : "1281f484-2ecb-4452-bfd9-8e01fb9c0b79",
+    "courseId" : "fa8bbc4d-4be4-4c6b-8f59-3b733735444c",
     "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
-    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        Solution solution = new Solution();\n        int[] testArray = {};\n        double expected = 0.0;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n    @Test\n    public void testAdd2() {\n        Solution solution = new Solution();\n        int[] testArray = {-1, -2, -3, -4, -5};\n        double expected = -3.0;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n    @Test\n    public void testAdd3() {\n        Solution solution = new Solution();\n        int[] testArray = {Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE};\n        double expected = (double) Integer.MAX_VALUE;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n    @Test\n    public void testAdd4() {\n        Solution solution = new Solution();\n        int[] testArray = {Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};\n        double expected = (double) Integer.MIN_VALUE;\n        double actual = solution.average(testArray);\n        assertEquals(expected, actual, 0.001);\n    }\n  \n}"
+    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\npublic class SolutionTest {\n    Solution solution = new Solution();\n    @Test\n    public void test1() {\n        int[] numbers = {1, 2, 3};\n        int expectedSum = 6;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test2() {\n        int[] numbers = {-1, -2, -3};\n        int expectedSum = -6;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test3() {\n        int[] numbers = {1, -2, 3};\n        int expectedSum = 2;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test4() {\n        int[] numbers = {0};\n        int expectedSum = 0;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test5() {\n        int[] numbers = {};\n        int expectedSum = 0;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test6() {\n        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n        int expectedSum = 55;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n}"
 }
 
 ###
@@ -111,50 +111,28 @@ POST  {{hostname}}/api/ops/activity/create
 Content-Type: application/json
 
 {
-    "topic" : "vowels",
+    "topic" : "find me",
     "points" : 50,
     "numofattempts" : 1,
     "availablefrom" : "",
     "availableto" : "",
     "language" : "JAVA",
     "codingActivity" : {
-        "question": "Write a Java method called (vowels) that takes a string as a parameter and returns the number of vowels in the string."
+        "question": "Write a Java method called {findNumber} that takes in an array(int) and a target(int) as parameters, return the index of the target"
     },
     "learningObjectives": {
-        "description" : "Properly learn how to write good code ().."
+        "description" : "Properly learn how to write good code"
     },
-    "courseId" : "1281f484-2ecb-4452-bfd9-8e01fb9c0b79",
+    "courseId" : "fa8bbc4d-4be4-4c6b-8f59-3b733735444c",
     "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
-    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testAdd1() {\n        Solution solution = new Solution();\n        String testString = \"Hello, World!\";\n        int expected = 3;\n        int actual = solution.countVowels(testString);\n        assertEquals(expected, actual);\n    }\n    @Test\n    public void testAdd2() {\n        Solution solution = new Solution();\n        String testString = \"\";\n        int expected = 0;\n        int actual = solution.countVowels(testString);\n        assertEquals(expected, actual);\n    }\n    @Test\n    public void testAdd3() {\n        Solution solution = new Solution();\n        String testString = \"qwrtypsdfghjklzxcvbnm\";\n        int expected = 0;\n        int actual = solution.countVowels(testString);\n        assertEquals(expected, actual);\n    }\n    @Test\n    public void testAdd4() {\n        Solution solution = new Solution();\n        String testString = \"aeiou\";\n        int expected = 5;\n        int actual = solution.countVowels(testString);\n        assertEquals(expected, actual);\n    }\n  \n}"
-}
-
-###
-POST  {{hostname}}/api/ops/activity/create
-Content-Type: application/json
-
-{
-    "topic" : "two times",
-    "points" : 50,
-    "numofattempts" : 1,
-    "availablefrom" : "",
-    "availableto" : "",
-    "language" : "JAVA",
-    "codingActivity" : {
-        "question": "Write a Java method called (twoArray) that takes a two-dimensional array of integers and returns the sum of all the elements in the array."
-    },
-    "learningObjectives": {
-        "description" : "Properly learn how to write good code ().."
-    },
-    "courseId" : "1281f484-2ecb-4452-bfd9-8e01fb9c0b79",
-    "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
-    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\n\npublic class SolutionTest {\n    @Test\n    public void testArraySum() {\n        Solution solution = new Solution();\n        int[][] testArray = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};\n        int expected = 45;\n        int actual = solution.sumArray(testArray);\n        assertEquals(expected, actual);\n    }\n    \n    @Test\n    public void testEmptyArray() {\n        Solution solution = new Solution();\n        int[][] testArray = {};\n        int expected = 0;\n        int actual = solution.sumArray(testArray);\n        assertEquals(expected, actual);\n    }\n\n    @Test\n    public void testSingleElementArray() {\n        Solution solution = new Solution();\n        int[][] testArray = {{1}};\n        int expected = 1;\n        int actual = solution.sumArray(testArray);\n        assertEquals(expected, actual);\n    }\n\n    @Test\n    public void testNegativeElements() {\n        Solution solution = new Solution();\n        int[][] testArray = {{-1, -2, -3}, {-4, -5, -6}, {-7, -8, -9}};\n        int expected = -45;\n        int actual = solution.sumArray(testArray);\n        assertEquals(expected, actual);\n    }\n  \n}"
+    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\npublic class SolutionTest {\n    Solution solution = new Solution();\n    @Test\n  public void test1() {\n    int[] array = {1, 2, 3, 4, 5};\n    int target = 4;\n    int expectedResult = 3;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test2() {\n    int[] array = {1, 2, 3, 4, 5, 10, 19};\n    int target = 10;\n    int expectedResult = 5;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test3() {\n    int[] array = {0};\n    int target = 0;\n    int expectedResult = 0;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test4() {\n    int[] array = {0, 1, 89, 2, 1};\n    int target = 89;\n    int expectedResult = 2;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n}"
 }
 
 ###
 GET  {{hostname}}/api/ops/activity/read
 
 ###
-GET {{hostname}}/api/ops/activity/read/85b0ee97-6c7d-4089-be53-8c50d7ff8940
+GET {{hostname}}/api/ops/activity/read/29151c01-c594-4a1d-813a-26d6d2d06b25
 
 ###
 DELETE {{hostname}}/api/ops/activity/delete/606ae7fa-49b2-43d8-ab4f-127edd86f75e
@@ -165,11 +143,11 @@ DELETE {{hostname}}/api/ops/activity/delete
 # --- Activity ---
 
 # --- Student ---
+
 ###
 GET  {{hostname}}/api/ops/student/read 
 
 ###
-
 POST  {{hostname}}/api/ops/course/update/enroll/67aeb67b-e0e1-4c23-8d66-946613e7c359
 Content-Type: application/json
 
