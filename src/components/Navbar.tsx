@@ -15,9 +15,9 @@ export default function Navbar() {
             <nav className='md:py mb-10 flex justify-evenly py-7'>
                 <h1 className='text-xl font-bold text-secondary '>
                     {auth.user!.role === "STUDENT" ? (
-                        <Link href='/student/dashboard'>Evaluate</Link>
+                        <Link href='/student/dashboard'>ProGrader</Link>
                     ) : (
-                        <Link href='/faculty/dashboard'>Evaluate</Link>
+                        <Link href='/faculty/dashboard'>ProGrader</Link>
                     )}
                 </h1>
                 <ul className='flex items-center gap-10'>

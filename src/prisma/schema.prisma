@@ -56,7 +56,7 @@ model Course {
 model LearningObjective {
   learningObjId String    @id @default(uuid())
   description   String
-  course        Course?    @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
+  course        Course?   @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
   courseId      String?   @unique
   activity      Activity? @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
   activityId    String?
@@ -91,16 +91,33 @@ model CodingActivity {
 }
 
 model Submission {
-  submissionId             String         @id @default(uuid())
-  sumbittedAt              DateTime       @default(now())
-  score                    String         @db.VarChar(5000)
-  student                  Student        @relation(fields: [studentid], references: [sid], onDelete: Cascade)
+  submissionId             String                @id @default(uuid())
+  sumbittedAt              DateTime              @default(now())
+  score                    String                @db.LongText
+  isLate                   Boolean?              @default(false)
+  student                  Student               @relation(fields: [studentid], references: [sid], onDelete: Cascade)
   studentid                String
-  sourceCode               String         @db.VarChar(5000)
-  codingActitvySubmissions CodingActivity @relation(fields: [codingActivityId], references: [codingactivityId], onDelete: Cascade)
+  sourceCode               String                @db.LongText
+  codingActitvySubmissions CodingActivity        @relation(fields: [codingActivityId], references: [codingactivityId], onDelete: Cascade)
   codingActivityId         String
+  CodingActivityMetric     CodingActivityMetric?
 
   @@index([submissionId])
+}
+
+model CodingActivityMetric {
+  activityMetricId String     @id @default(uuid())
+  timeSpent        Int
+  runCount         Int
+  //timen between run and submit
+  submission       Submission @relation(fields: [submissionId], references: [submissionId])
+  submissionId     String     @unique
+}
+
+model StudentMetric {
+  studentMetricId String   @id @default(uuid())
+  lastLogin       DateTime @default(now())
+  lastLogout     DateTime @default(now())
 }
 
 enum ROLE {
@@ -122,4 +139,9 @@ enum ProgrammingLanguage {
 // * An Activity can have many LO's, Many LO's can be linked to an activity (1 - M) -
 // * An Activity can have one codingActivity, One codingActivity can be linked to on activity (1 - 1) -
 // * A codingActivity can have many submissions, Many submission can be linked to a codingActivity (1 - M )
+// student metric not documented
 // }
+
+
+// . GRADING 
+// include late submission, f

@@ -33,11 +33,9 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
     const stream = new ReadableStream({
         async start(controller) {
-            // callback
             function onParse(event: ParsedEvent | ReconnectInterval) {
                 if (event.type === "event") {
                     const data = event.data
-                    // https://beta.openai.com/docs/api-reference/completions/create#completions/create-stream
                     if (data === "[DONE]") {
                         controller.close()
                         return

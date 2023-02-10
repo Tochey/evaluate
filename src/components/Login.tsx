@@ -33,7 +33,7 @@ export default function Login({
                                     <div className='md:mx-6 md:p-12'>
                                         <div className='text-center'>
                                             <h4 className='mt-1 mb-12 pb-1 text-xl font-semibold text-secondary'>
-                                                Welcome to Evaluate
+                                                Welcome to ProGrader
                                             </h4>
                                         </div>
                                         <form>

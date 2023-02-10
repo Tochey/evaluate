@@ -25,18 +25,15 @@ Tochi:
 * write testRunner to /tmp dir in dockerfile then copy to dir on every subsequent use case
 * profile page with personalized statistics
 * possibly add nextjs security headers
-* discuss database delete behavior with nafa (onDelete onUpdate)
+* discuss database delete behavior with nafa (onDelete onUpdate) - fix behaviors in prisma files
 * are prisma migration files necessary or can be deleted? - https://www.prisma.io/docs/concepts/components/prisma-migrate
 * fix login error messages (make more readable)
 * refresh user access tokens - necessary for uninterupted workflows https://www.youtube.com/watch?v=16-1mTdGBoM  --postponed (26:50)
 * secure rce workers https://github.com/engineer-man/piston
-* secure rce api gateway (auth, rate limit)
+* secure rce api gateway (auth, rate limit) WAFcdk
 * apply for more lambda concurreny on aws
-*  ---- data ----
-* collect when student last logged in
-* Time spent on activity 
-* last time when the click run and submit
-* how many times they click run 
+- add cfn output to ssm and call ssm from frontend
+- add more observability for the application as a whole 
 
 Backlog
 add allowed domains for cookie 

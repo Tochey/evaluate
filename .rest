@@ -1,4 +1,4 @@
-@hostname = https://main.d34qxtpa1jstt.amplifyapp.com 
+@hostname = http://localhost:3000
 # https://main.d34qxtpa1jstt.amplifyapp.com 
 
 # http://localhost:3000/
@@ -33,8 +33,8 @@ Content-Type: application/json
 
 {
    "fullname" : "Tochi Amanze",
-   "username" : "tochi",
-    "email" : "tochi@salemstate.edu",
+   "username" : "tochi1",
+    "email" : "tochi1232@salemstate.edu",
     "password" : "tochi123"
 }
 
@@ -132,7 +132,7 @@ Content-Type: application/json
 GET  {{hostname}}/api/ops/activity/read
 
 ###
-GET {{hostname}}/api/ops/activity/read/29151c01-c594-4a1d-813a-26d6d2d06b25
+GET {{hostname}}/api/ops/activity/read/85801f26-910d-424c-aceb-04844386bfe4
 
 ###
 DELETE {{hostname}}/api/ops/activity/delete/606ae7fa-49b2-43d8-ab4f-127edd86f75e
@@ -171,8 +171,11 @@ GET {{hostname}}/api/ops/activity/read/submissions/64b69d82-0bce-4f26-bff8-c65e7
 
 
 ###
-POST  https://www.twitterbio.com/api/generate
+GET  https://canvas.instructure.com/api/v1/users/self/profile
+Authorization: Bearer 8~h9KipNy37bwteKUlCXdZC0FuLHlwTWws3lQHaZQHAkHHPUTguo9DvPZYWDj9dh2U
 
-{
-    "prompt": "Write a method called (isEven) that takes in two int parameters and returns TRUE if one of them is an even number else return FALSE",
-}
+###
+
+GET  https://canvas.instructure.com/api/v1/users/self
+Authorization: Bearer 8~h9KipNy37bwteKUlCXdZC0FuLHlwTWws3lQHaZQHAkHHPUTguo9DvPZYWDj9dh2U
+
