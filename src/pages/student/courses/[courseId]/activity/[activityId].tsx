@@ -15,7 +15,7 @@ export default function StudentActivity({
 }: IProps) {
     const {
         numofattempts,
-        codingActivity: { codingactivityId, question, language, skeletonCode },
+        codingActivity: { codingactivityId, question, language, testCases },
     } = activities
 
     return (
@@ -35,7 +35,7 @@ export default function StudentActivity({
             <CodeUi
                 language={language}
                 codingActivityId={codingactivityId}
-                skeletonCode={skeletonCode}
+                testCases={testCases}
                 sid={sid}
                 question={question}
             />

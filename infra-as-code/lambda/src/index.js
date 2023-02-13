@@ -24,11 +24,11 @@ exports.handler = async (event, context) => {
     }
 
     if (path === "/submit-code") {
-        const { language, code, skeletonCode } = JSON.parse(event.body)
+        const { language, code, testCases } = JSON.parse(event.body)
 
         switch (language.toLowerCase()) {
             case "java":
-                const result = await submitJaveCode(code, skeletonCode)
+                const result = await submitJaveCode(code, testCases)
                 return {
                     headers: {
                         "Access-Control-Allow-Headers": "Content-Type",

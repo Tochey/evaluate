@@ -67,10 +67,10 @@ model LearningObjective {
 model Activity {
   activityId         String              @id @default(uuid())
   topic              String              @unique
-  points             Int
-  numofattempts      Int
+  points             Int                 @default(10)
+  numofattempts      Int                 @default(1)
   availablefrom      DateTime            @default(now())
-  availableto        DateTime
+  availableto        String             // we send due date to backend as string
   course             Course              @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
   courseId           String
   learningObjectives LearningObjective[]
@@ -86,8 +86,7 @@ model CodingActivity {
   submissions      Submission[]
   actitvity        Activity            @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
   activityId       String              @unique
-  testCases        String
-  skeletonCode     String              @db.LongText
+  testCases     String              @db.LongText
 }
 
 model Submission {
@@ -117,7 +116,7 @@ model CodingActivityMetric {
 model StudentMetric {
   studentMetricId String   @id @default(uuid())
   lastLogin       DateTime @default(now())
-  lastLogout     DateTime @default(now())
+  lastLogout      DateTime @default(now())
 }
 
 enum ROLE {
@@ -141,7 +140,6 @@ enum ProgrammingLanguage {
 // * A codingActivity can have many submissions, Many submission can be linked to a codingActivity (1 - M )
 // student metric not documented
 // }
-
 
 // . GRADING 
 // include late submission, f

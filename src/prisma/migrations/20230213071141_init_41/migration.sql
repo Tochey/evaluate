@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE `Activity` MODIFY `points` INTEGER NOT NULL DEFAULT 10,
+    MODIFY `numofattempts` INTEGER NOT NULL DEFAULT 1,
+    MODIFY `availableto` VARCHAR(191) NOT NULL;
+
+-- AlterTable
+ALTER TABLE `StudentMetric` ADD COLUMN `lastLogout` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3);

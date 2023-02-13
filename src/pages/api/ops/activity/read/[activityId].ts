@@ -20,7 +20,6 @@ export default async function getActivityById(
                         codingactivityId: true,
                         question: true,
                         language: true,
-                        skeletonCode: true,
                         submissions: true,
                     },
                 },

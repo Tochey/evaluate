@@ -6,7 +6,7 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 interface IProps {
-    skeletonCode: string
+    testCases: string
     language: string
     codingActivityId: string
     sid: string
@@ -18,7 +18,7 @@ type IButtonProps = {
     func: () => void
 }
 export default function CodeUi({
-    skeletonCode,
+    testCases,
     sid,
     language,
     codingActivityId,
@@ -59,7 +59,7 @@ export default function CodeUi({
         const data = {
             code: codeActivity,
             language: language,
-            skeletonCode: skeletonCode,
+            testCases: testCases,
         }
         try {
             setIsLoading(true)
@@ -83,7 +83,7 @@ export default function CodeUi({
         const data = {
             code: codeActivity,
             language: language,
-            skeletonCode: skeletonCode,
+            testCases: testCases,
         }
 
         if (data.code.match(RegExp("private\\s+[\\w\\s<>,]+\\([^\\)]*\\)"))) {

@@ -9,26 +9,19 @@ export default async function createActivity(
 ) {
     const {
         topic,
-        points,
-        numofattempts,
-        availablefrom,
         availableto,
         courseId,
         testCases,
         language,
-        skeleton,
-        codingActivity: { question },
-        learningObjectives: { description },
+        question,
+        learningObjectives
     } = req.body
 
     return prismaErrorWrapper(res, async () => {
         return await prisma.activity.create({
             data: {
                 topic: topic,
-                points: points,
-                numofattempts: numofattempts,
-                availablefrom: new Date().toISOString(),
-                availableto: new Date().toISOString(),
+                availableto: availableto,
                 course: {
                     connect: {
                         courseId: courseId, //replace with courseId
@@ -36,7 +29,7 @@ export default async function createActivity(
                 },
                 learningObjectives: {
                     create: {
-                        description: description,
+                        description: learningObjectives,
                     },
                 },
                 codingActivity: {
@@ -44,7 +37,6 @@ export default async function createActivity(
                         question: question,
                         testCases: testCases,
                         language: language,
-                        skeletonCode: skeleton,
                     },
                 },
             },

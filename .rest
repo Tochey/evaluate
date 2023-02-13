@@ -102,8 +102,7 @@ Content-Type: application/json
         "description" : "Properly learn how to write good code ().."
     },
     "courseId" : "890b8e15-ec29-44bf-add9-e52d445a47c6",
-    "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
-    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\npublic class SolutionTest {\n    Solution solution = new Solution();\n    @Test\n    public void test1() {\n        int[] numbers = {1, 2, 3};\n        int expectedSum = 6;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test2() {\n        int[] numbers = {-1, -2, -3};\n        int expectedSum = -6;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test3() {\n        int[] numbers = {1, -2, 3};\n        int expectedSum = 2;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test4() {\n        int[] numbers = {0};\n        int expectedSum = 0;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test5() {\n        int[] numbers = {};\n        int expectedSum = 0;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test6() {\n        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n        int expectedSum = 55;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n}"
+    "testCases" : "import org.junit.Test;\nimport static org.junit.Assert.*;\npublic class SolutionTest {\n    Solution solution = new Solution();\n    @Test\n    public void test1() {\n        int[] numbers = {1, 2, 3};\n        int expectedSum = 6;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test2() {\n        int[] numbers = {-1, -2, -3};\n        int expectedSum = -6;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test3() {\n        int[] numbers = {1, -2, 3};\n        int expectedSum = 2;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test4() {\n        int[] numbers = {0};\n        int expectedSum = 0;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test5() {\n        int[] numbers = {};\n        int expectedSum = 0;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n    @Test\n    public void test6() {\n        int[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};\n        int expectedSum = 55;\n\n        int actualSum = solution.addArray(numbers);\n\n        assertEquals(expectedSum, actualSum);\n    }\n}"
 }
 
 ###
@@ -112,9 +111,6 @@ Content-Type: application/json
 
 {
     "topic" : "find me",
-    "points" : 50,
-    "numofattempts" : 1,
-    "availablefrom" : "",
     "availableto" : "",
     "language" : "JAVA",
     "codingActivity" : {
@@ -124,8 +120,7 @@ Content-Type: application/json
         "description" : "Properly learn how to write good code"
     },
     "courseId" : "890b8e15-ec29-44bf-add9-e52d445a47c6",
-    "testCases" : "1 2 3\n4 5 9\n10 50 60\n100 100 200\n20 30 50\n4 4 8\n21 21 42\n 10 1 11\n20 20 40",
-    "skeleton" : "import org.junit.Test;\nimport static org.junit.Assert.*;\npublic class SolutionTest {\n    Solution solution = new Solution();\n    @Test\n  public void test1() {\n    int[] array = {1, 2, 3, 4, 5};\n    int target = 4;\n    int expectedResult = 3;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test2() {\n    int[] array = {1, 2, 3, 4, 5, 10, 19};\n    int target = 10;\n    int expectedResult = 5;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test3() {\n    int[] array = {0};\n    int target = 0;\n    int expectedResult = 0;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test4() {\n    int[] array = {0, 1, 89, 2, 1};\n    int target = 89;\n    int expectedResult = 2;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n}"
+    "testCases" : "import org.junit.Test;\nimport static org.junit.Assert.*;\npublic class SolutionTest {\n    Solution solution = new Solution();\n    @Test\n  public void test1() {\n    int[] array = {1, 2, 3, 4, 5};\n    int target = 4;\n    int expectedResult = 3;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test2() {\n    int[] array = {1, 2, 3, 4, 5, 10, 19};\n    int target = 10;\n    int expectedResult = 5;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test3() {\n    int[] array = {0};\n    int target = 0;\n    int expectedResult = 0;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test4() {\n    int[] array = {0, 1, 89, 2, 1};\n    int target = 89;\n    int expectedResult = 2;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n}"
 }
 
 ###
@@ -176,6 +171,7 @@ Authorization: Bearer 8~h9KipNy37bwteKUlCXdZC0FuLHlwTWws3lQHaZQHAkHHPUTguo9DvPZY
 
 ###
 
-GET  https://canvas.instructure.com/api/v1/users/self
+POST  https://canvas.instructure.com/api/v1/jwts
 Authorization: Bearer 8~h9KipNy37bwteKUlCXdZC0FuLHlwTWws3lQHaZQHAkHHPUTguo9DvPZYWDj9dh2U
+
 

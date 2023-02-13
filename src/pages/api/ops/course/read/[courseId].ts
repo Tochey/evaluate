@@ -30,7 +30,7 @@ export default async function getCourseById(
                         topic: true,
                         points: true,
                         numofattempts: true,
-                        availablefrom: true,
+                        // availablefrom: true,
                         availableto: true,
                         codingActivity: true,
                     },

@@ -4,7 +4,7 @@ const fs = require("fs")
 const Path = require("path")
 const { v1: uuidv1 } = require("uuid")
 
-const submitJaveCode = async (code, skeletonCode, language) => {
+const submitJaveCode = async (code, testCases, language) => {
     let folderName = uuidv1()
     let filename = "Solution.java"
     let unitTestFileName = "SolutionTest.java"
@@ -18,7 +18,7 @@ const submitJaveCode = async (code, skeletonCode, language) => {
     try {
         fs.mkdirSync(folder, 0777)
         fs.writeFileSync(path + filename, code)
-        fs.writeFileSync(path + unitTestFileName, skeletonCode)
+        fs.writeFileSync(path + unitTestFileName, testCases)
         fs.writeFileSync(path + testRunnerFileName, testRunnerCode)
     } catch (e) {
         return "Something went wrong writing to file or creating"

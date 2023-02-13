@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { Activity } from "@prisma/client"
+import moment from "moment"
 
 type IProps = Omit<Activity, "courseId" | "availablefrom"> & {
     isAvailable: boolean
@@ -22,6 +23,7 @@ export default function StudentActivities({
         e.preventDefault()
         router.push(`${router.asPath}/activity/${activityId}`)
     }
+    const dueDate = moment(availableto, 'ddd MMM DD YYYY HH:mm:ss ZZ');
     return (
         <div className='max-w-sm overflow-hidden rounded border-x border-secondary bg-primary text-secondary shadow-lg'>
             <div className='px-6 py-4'>
@@ -35,7 +37,7 @@ export default function StudentActivities({
                     </span>{" "}
                     | Due :{" "}
                     <span className='font-bold text-white'>
-                        {new Date(availableto).toLocaleString()}
+                      {dueDate.format('dddd, MMMM Do YYYY, h:mm:ss a')}
                     </span>
                 </p>
             </div>
