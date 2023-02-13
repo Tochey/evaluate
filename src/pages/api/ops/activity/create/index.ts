@@ -14,7 +14,7 @@ export default async function createActivity(
         testCases,
         language,
         question,
-        learningObjectives
+        learningObjectives,
     } = req.body
 
     return prismaErrorWrapper(res, async () => {

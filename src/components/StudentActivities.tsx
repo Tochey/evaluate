@@ -23,7 +23,7 @@ export default function StudentActivities({
         e.preventDefault()
         router.push(`${router.asPath}/activity/${activityId}`)
     }
-    const dueDate = moment(availableto, 'ddd MMM DD YYYY HH:mm:ss ZZ');
+    const dueDate = moment(availableto, "ddd MMM DD YYYY HH:mm:ss ZZ")
     return (
         <div className='max-w-sm overflow-hidden rounded border-x border-secondary bg-primary text-secondary shadow-lg'>
             <div className='px-6 py-4'>
@@ -37,7 +37,7 @@ export default function StudentActivities({
                     </span>{" "}
                     | Due :{" "}
                     <span className='font-bold text-white'>
-                      {dueDate.format('dddd, MMMM Do YYYY, h:mm:ss a')}
+                        {dueDate.format("dddd, MMMM Do YYYY, h:mm:ss a")}
                     </span>
                 </p>
             </div>

@@ -12,7 +12,7 @@ interface IProps {
     courseId: string
 }
 
-export default function CreateActivity({courseId} : IProps) {
+export default function CreateActivity({ courseId }: IProps) {
     var yesterday = moment().subtract(1, "day")
     var valid = function (current: { isAfter: (arg0: moment.Moment) => any }) {
         return current.isAfter(yesterday)
@@ -27,7 +27,7 @@ export default function CreateActivity({courseId} : IProps) {
         facultyId: (auth.user as faculty).facultyId,
         availableto: "",
         language: "JAVA",
-        courseId : courseId
+        courseId: courseId,
     })
     const handleCreateActivityChange: (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -38,17 +38,16 @@ export default function CreateActivity({courseId} : IProps) {
     const handleCreateActivity: React.MouseEventHandler<
         HTMLButtonElement
     > = async () => {
-
-          if (
-              data.topic === "" ||
-              data.question === "" ||
-              data.testCases === "" ||
-              data.learningObjectives === "" || 
-              data.availableto === ""
-          ) {
-              alert("Please fill in ALL fields")
-              return
-          }
+        if (
+            data.topic === "" ||
+            data.question === "" ||
+            data.testCases === "" ||
+            data.learningObjectives === "" ||
+            data.availableto === ""
+        ) {
+            alert("Please fill in ALL fields")
+            return
+        }
 
         try {
             try {
@@ -91,7 +90,16 @@ export default function CreateActivity({courseId} : IProps) {
                         htmlFor='topic'>
                         Due Date & Time
                     </label>
-                    <Datetime className='' isValidDate={ valid } onChange={(e) => setData({...data, availableto : e.toLocaleString()})} />
+                    <Datetime
+                        className=''
+                        isValidDate={valid}
+                        onChange={(e) =>
+                            setData({
+                                ...data,
+                                availableto: e.toLocaleString(),
+                            })
+                        }
+                    />
                 </div>
             </div>
             <div className='-mx-3 mb-6 flex flex-wrap'>
@@ -164,8 +172,7 @@ export const getServerSideProps = requireFacultyAuthentication(
         const { courseId } = ctx.query
         return {
             props: {
-                courseId : courseId
-               
+                courseId: courseId,
             },
         }
     }
