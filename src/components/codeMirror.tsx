@@ -94,7 +94,7 @@ export default function CodeUi({
             setIsLoading(false)
             return
         }
-       
+
         try {
             setIsLoading(true)
             setOutput("")
@@ -116,7 +116,9 @@ export default function CodeUi({
                         codingActivityId: codingActivityId,
                         score: result.toString(),
                         sourceCode: codeActivity,
-                        submittedAt : moment().format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ')
+                        submittedAt: moment().format(
+                            "ddd MMM DD YYYY HH:mm:ss [GMT]ZZ"
+                        ),
                     }
 
                     await axios.post(

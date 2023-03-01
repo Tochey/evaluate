@@ -6,7 +6,11 @@ import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
 
 interface IProps {
-    activities: Array<Activity & {codingActivity : CodingActivity & {submissions: Submission[]}}>
+    activities: Array<
+        Activity & {
+            codingActivity: CodingActivity & { submissions: Submission[] }
+        }
+    >
     courseId: string
 }
 
@@ -24,27 +28,35 @@ export default function CourseAcivities({ activities, courseId }: IProps) {
                 </button>
             </div>
             <div className='flex flex-col items-center gap-10 md:flex-row'>
-            {activities.map(
-                ({ topic, availableto, points, numofattempts, codingActivity, activityId, codingActivity : {
-                    submissions
-                }}, index) => {
-                    return (
-                        <FacultyActivities
-                            key={index}
-                            topic={topic}
-                            activityId={activityId}
-                            availableto={availableto}
-                            points={points}
-                            numofattempts={numofattempts}
-                            courseId = {courseId}
-                            codingActivity={codingActivity}
-                            submissions = {submissions}
-                        />
-                    )
-                }
-            )}
+                {activities.map(
+                    (
+                        {
+                            topic,
+                            availableto,
+                            points,
+                            numofattempts,
+                            codingActivity,
+                            activityId,
+                            codingActivity: { submissions },
+                        },
+                        index
+                    ) => {
+                        return (
+                            <FacultyActivities
+                                key={index}
+                                topic={topic}
+                                activityId={activityId}
+                                availableto={availableto}
+                                points={points}
+                                numofattempts={numofattempts}
+                                courseId={courseId}
+                                codingActivity={codingActivity}
+                                submissions={submissions}
+                            />
+                        )
+                    }
+                )}
             </div>
-           
         </section>
     )
 }
@@ -54,7 +66,7 @@ export const getServerSideProps = requireFacultyAuthentication(
         const { courseId } = ctx.query
         const { data } = await api.get(`/api/ops/course/read/${courseId}`)
         const { activities } = data
-        
+
         return {
             props: {
                 courseId: courseId,

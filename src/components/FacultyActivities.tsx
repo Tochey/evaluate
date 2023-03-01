@@ -13,7 +13,9 @@ import api from "@lib/api"
 type IProps = Pick<
     Activity,
     "topic" | "points" | "numofattempts" | "availableto" | "activityId"
-> & { courseId: String } & {codingActivity : CodingActivity} & {submissions : Submission[]}
+> & { courseId: String } & { codingActivity: CodingActivity } & {
+    submissions: Submission[]
+}
 export default function FacultyActivities({
     topic,
     points,
@@ -22,7 +24,7 @@ export default function FacultyActivities({
     courseId,
     codingActivity,
     submissions,
-    activityId
+    activityId,
 }: IProps) {
     const [isClicked, setIsClicked] = useState(false)
 
@@ -48,14 +50,17 @@ export default function FacultyActivities({
         }
     }
     return (
-        <div className='max-w-xs rounded-lg bg-primary shadow-lg border border-white'>
+        <div className='max-w-xs rounded-lg border border-white bg-primary shadow-lg'>
             <div className='p-5'>
                 <h5 className='mb-2 text-xl font-medium text-secondary'>
-                    <Link href={`/faculty/submissions/${codingActivity.codingactivityId}`} className= "underline font-bold">{topic}</Link>
+                    <Link
+                        href={`/faculty/submissions/${codingActivity.codingactivityId}`}
+                        className='font-bold underline'>
+                        {topic}
+                    </Link>
                 </h5>
                 <p className='mb-4 text-sm text-secondary'>
                     Number of points: {points}
-        
                     <br />
                     Due Date: {dueDate.format("dddd, MMMM Do YYYY, h:mm:ss a")}
                 </p>

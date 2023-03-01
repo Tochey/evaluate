@@ -33,9 +33,9 @@ export default async function getCourseById(
                         // availablefrom: true,
                         availableto: true,
                         codingActivity: {
-                            include : {
-                                submissions : true
-                            }
+                            include: {
+                                submissions: true,
+                            },
                         },
                     },
                     orderBy: {

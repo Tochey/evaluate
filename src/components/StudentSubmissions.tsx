@@ -15,9 +15,16 @@ import moment from "moment"
 type IProps = Pick<
     Submission,
     "submittedAt" | "score" | "isLate" | "sourceCode"
-> &  Pick<Student, "fullName">
+> &
+    Pick<Student, "fullName">
 
-export default function StudentSubmission({score, sourceCode, submittedAt, isLate, fullName} : IProps) {
+export default function StudentSubmission({
+    score,
+    sourceCode,
+    submittedAt,
+    isLate,
+    fullName,
+}: IProps) {
     const [isClicked, setIsClicked] = useState(false)
     const dueDate = moment(submittedAt, "ddd MMM DD YYYY HH:mm:ss ZZ")
     console.log(submittedAt)
@@ -25,18 +32,19 @@ export default function StudentSubmission({score, sourceCode, submittedAt, isLat
     return (
         <div className='max-w-xs rounded-lg border border-secondary bg-primary shadow-lg'>
             <div className='p-6'>
-                <h2 className="text-white">
-                    {fullName}
-                </h2>
-                    {isLate ? <p className="text-red-500 font-bold">
-                        LATE
-                    </p> : "" }
+                <h2 className='text-white'>{fullName}</h2>
+                {isLate ? <p className='font-bold text-red-500'>LATE</p> : ""}
                 <p className='mb-4 text-sm text-secondary'>
-                   Score: {score}
+                    Score: {score}
                     <br />
-                    Submitted at: {dueDate.format("dddd, MMMM Do YYYY, h:mm:ss a")}
+                    Submitted at:{" "}
+                    {dueDate.format("dddd, MMMM Do YYYY, h:mm:ss a")}
                 </p>
-                <textarea value={sourceCode} className={"w-full p-2 outline-none"} readOnly={true} />
+                <textarea
+                    value={sourceCode}
+                    className={"w-full p-2 outline-none"}
+                    readOnly={true}
+                />
             </div>
         </div>
     )
