@@ -25,9 +25,8 @@ export default function StudentSubmission({
     isLate,
     fullName,
 }: IProps) {
-    const [isClicked, setIsClicked] = useState(false)
+
     const dueDate = moment(submittedAt, "ddd MMM DD YYYY HH:mm:ss ZZ")
-    console.log(submittedAt)
 
     return (
         <div className='max-w-xs rounded-lg border border-secondary bg-primary shadow-lg'>

@@ -40,7 +40,6 @@ export default function Index({ courseInfo, submissions }: IProps) {
     return (
         <div className='flex flex-col items-center gap-10 md:flex-row'>
             {activities.map((e, index: number) => {
-                console.log(e)
                 if (
                     codingActivityIds.includes(
                         e.codingActivity.codingactivityId

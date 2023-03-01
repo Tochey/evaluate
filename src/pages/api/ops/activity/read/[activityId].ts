@@ -21,6 +21,7 @@ export default async function getActivityById(
                         question: true,
                         language: true,
                         submissions: true,
+                        testCases : true
                     },
                 },
             },

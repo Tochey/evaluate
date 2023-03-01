@@ -29,7 +29,6 @@ export default function CodeUi({
     const [output, setOutput] = useState("")
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
-
     const RunButton = ({ state, func }: IButtonProps) => {
         return (
             <button

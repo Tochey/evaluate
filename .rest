@@ -113,13 +113,13 @@ Content-Type: application/json
     "topic" : "find me",
     "availableto" : "",
     "language" : "JAVA",
-    "codingActivity" : {
-        "question": "Write a Java method called {findNumber} that takes in an array(int) and a target(int) as parameters, return the index of the target"
-    },
-    "learningObjectives": {
-        "description" : "Properly learn how to write good code"
-    },
-    "courseId" : "890b8e15-ec29-44bf-add9-e52d445a47c6",
+
+        "question": "Write a Java method called {findNumber} that takes in an array(int) and a target(int) as parameters, return the index of the target",
+   
+ 
+        "learningObjectives" : "Properly learn how to write good code",
+  
+    "courseId" : "fa8bbc4d-4be4-4c6b-8f59-3b733735444c",
     "testCases" : "import org.junit.Test;\nimport static org.junit.Assert.*;\npublic class SolutionTest {\n    Solution solution = new Solution();\n    @Test\n  public void test1() {\n    int[] array = {1, 2, 3, 4, 5};\n    int target = 4;\n    int expectedResult = 3;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test2() {\n    int[] array = {1, 2, 3, 4, 5, 10, 19};\n    int target = 10;\n    int expectedResult = 5;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test3() {\n    int[] array = {0};\n    int target = 0;\n    int expectedResult = 0;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n  @Test\n  public void test4() {\n    int[] array = {0, 1, 89, 2, 1};\n    int target = 89;\n    int expectedResult = 2;\n\n    int result = solution.findNumber(array, target);\n    assertEquals(expectedResult, result);\n  }\n}"
 }
 

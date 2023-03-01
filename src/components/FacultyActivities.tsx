@@ -70,9 +70,7 @@ export default function FacultyActivities({
                             <FiEdit
                                 className=' h-6 w-6'
                                 onClick={() =>
-                                    router.push(
-                                        `/faculty/courses/${courseId}/edit`
-                                    )
+                                   alert("Not available, coming soon")
                                 }
                             />
                         </li>
