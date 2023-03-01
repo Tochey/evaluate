@@ -17,12 +17,7 @@ export default async function getSubmissions(
                 question: true,
                 submissions: {
                     include: {
-                        student: {
-                            select: {
-                                email: true,
-                                username: true,
-                            },
-                        },
+                        student: true,
                     },
                 },
             },

@@ -7,7 +7,7 @@ export default async function assignActivityGrade(
     res: NextApiResponse
 ) {
     const { sid } = req.query
-    const { codingActivityId, sourceCode, score } = req.body
+    const { codingActivityId, sourceCode, score, submittedAt } = req.body
 
     return prismaErrorWrapper(res, async () => {
         return await prisma.submission.create({
@@ -16,6 +16,7 @@ export default async function assignActivityGrade(
                 codingActivityId: codingActivityId,
                 sourceCode: sourceCode,
                 score: score,
+                submittedAt: submittedAt,
             },
         })
     })

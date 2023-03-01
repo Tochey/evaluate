@@ -48,8 +48,7 @@ export default function CreateActivity({ courseId }: IProps) {
             alert("Please fill in ALL fields")
             return
         }
-
-        try {
+      
             try {
                 const res = await api.post("/api/ops/activity/create", data)
                 console.log(res.data)
@@ -57,9 +56,7 @@ export default function CreateActivity({ courseId }: IProps) {
             } catch (error) {
                 console.log(error)
             }
-        } catch (error) {
-            console.log(error)
-        }
+       
     }
     return (
         <form className='w-full max-w-lg align-middle'>

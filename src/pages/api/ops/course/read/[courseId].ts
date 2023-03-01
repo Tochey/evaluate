@@ -32,7 +32,11 @@ export default async function getCourseById(
                         numofattempts: true,
                         // availablefrom: true,
                         availableto: true,
-                        codingActivity: true,
+                        codingActivity: {
+                            include : {
+                                submissions : true
+                            }
+                        },
                     },
                     orderBy: {
                         availablefrom: "asc",

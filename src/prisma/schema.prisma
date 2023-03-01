@@ -91,7 +91,7 @@ model CodingActivity {
 
 model Submission {
   submissionId             String                @id @default(uuid())
-  sumbittedAt              DateTime              @default(now())
+  submittedAt              String             
   score                    String                @db.LongText
   isLate                   Boolean?              @default(false)
   student                  Student               @relation(fields: [studentid], references: [sid], onDelete: Cascade)

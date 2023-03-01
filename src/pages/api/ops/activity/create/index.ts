@@ -1,6 +1,5 @@
 import { prisma } from "@config/prisma.connect"
 import prismaErrorWrapper from "@lib/prismaErrorWrapper"
-import { Prisma } from "@prisma/client"
 import { NextApiRequest, NextApiResponse } from "next"
 
 export default async function createActivity(

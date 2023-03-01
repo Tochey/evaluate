@@ -3,6 +3,7 @@ import { langs } from "@uiw/codemirror-extensions-langs"
 import { dracula } from "@uiw/codemirror-themes-all"
 import CodeMirror from "@uiw/react-codemirror"
 import axios from "axios"
+import moment from "moment"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 interface IProps {
@@ -93,51 +94,48 @@ export default function CodeUi({
             setIsLoading(false)
             return
         }
-        const prompt = `Give me feedback on this code : ${codeActivity}, besed on this question : ${question}.`
-        router.push({
-            pathname: "/feedback",
-            query: { prompt: prompt },
-        })
-        // try {
-        //     setIsLoading(true)
-        //     setOutput("")
-        //     await axios
-        //         .post(
-        //             (process.env.NEXT_PUBLIC_LAMBDA_CODE_EXEC_URL +
-        //                 "/submit-code") as string,
-        //             data
-        //         )
-        //         .then(async ({ data: { result } }) => {
-        //             result = result.replace(/\n/g, "")
-        //             result = Number(result)
+       
+        try {
+            setIsLoading(true)
+            setOutput("")
+            await axios
+                .post(
+                    (process.env.NEXT_PUBLIC_LAMBDA_CODE_EXEC_URL +
+                        "/submit-code") as string,
+                    data
+                )
+                .then(async ({ data: { result } }) => {
+                    result = result.replace(/\n/g, "")
+                    result = Number(result)
 
-        //             if (Number.isNaN(result)) {
-        //                 result = 0
-        //             }
+                    if (Number.isNaN(result)) {
+                        result = 0
+                    }
 
-        //             const post_data = {
-        //                 codingActivityId: codingActivityId,
-        //                 score: result.toString(),
-        //                 sourceCode: codeActivity,
-        //             }
+                    const post_data = {
+                        codingActivityId: codingActivityId,
+                        score: result.toString(),
+                        sourceCode: codeActivity,
+                        submittedAt : moment().format('ddd MMM DD YYYY HH:mm:ss [GMT]ZZ')
+                    }
 
-        //             await axios.post(
-        //                 `/api/ops/student/update/assignGrade/${sid}`,
-        //                 post_data
-        //             )
-        //             setIsLoading(false)
-        //             const prompt = `Give me feedback on this code : ${codeActivity}, besed on this question : ${question}.`
-        //             router.push({
-        //                 pathname: "/feedback",
-        //                 query: { prompt: prompt },
-        //             })
-        //         })
-        // } catch (error) {
-        //     setOutput(
-        //         "Something went wrong please contact tochey@outlook.com or try again"
-        //     )
-        //     setIsLoading(false)
-        // }
+                    await axios.post(
+                        `/api/ops/student/update/assignGrade/${sid}`,
+                        post_data
+                    )
+                    setIsLoading(false)
+                    const prompt = `Give me feedback on this code : ${codeActivity}, besed on this question : ${question}.`
+                    router.push({
+                        pathname: "/feedback",
+                        query: { prompt: prompt },
+                    })
+                })
+        } catch (error) {
+            setOutput(
+                "Something went wrong please contact tochey@outlook.com or try again"
+            )
+            setIsLoading(false)
+        }
     }
 
     useEffect(() => {

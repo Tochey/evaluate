@@ -1,12 +1,12 @@
 import FacultyActivities from "@components/FacultyActivities"
 import api from "@lib/api"
 import { requireFacultyAuthentication } from "@lib/requireAuthentication"
-import { Activity } from "@prisma/client"
+import { Activity, CodingActivity, Submission } from "@prisma/client"
 import { GetServerSidePropsContext } from "next"
 import { useRouter } from "next/router"
 
 interface IProps {
-    activities: Activity[]
+    activities: Array<Activity & {codingActivity : CodingActivity & {submissions: Submission[]}}>
     courseId: string
 }
 
@@ -23,9 +23,28 @@ export default function CourseAcivities({ activities, courseId }: IProps) {
                     Create Activity
                 </button>
             </div>
-            <div>
-                <FacultyActivities />
+            <div className='flex flex-col items-center gap-10 md:flex-row'>
+            {activities.map(
+                ({ topic, availableto, points, numofattempts, codingActivity, activityId, codingActivity : {
+                    submissions
+                }}, index) => {
+                    return (
+                        <FacultyActivities
+                            key={index}
+                            topic={topic}
+                            activityId={activityId}
+                            availableto={availableto}
+                            points={points}
+                            numofattempts={numofattempts}
+                            courseId = {courseId}
+                            codingActivity={codingActivity}
+                            submissions = {submissions}
+                        />
+                    )
+                }
+            )}
             </div>
+           
         </section>
     )
 }
@@ -35,6 +54,7 @@ export const getServerSideProps = requireFacultyAuthentication(
         const { courseId } = ctx.query
         const { data } = await api.get(`/api/ops/course/read/${courseId}`)
         const { activities } = data
+        
         return {
             props: {
                 courseId: courseId,
