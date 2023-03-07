@@ -16,61 +16,61 @@ import * as cdk from "aws-cdk-lib"
 export class InfraAsCodeStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
         super(scope, id, props)
-        // const vpc = new ec2.Vpc(this, "evaluate_vpc", {
-        //     ipAddresses: ec2.IpAddresses.cidr("10.0.0.0/16"),
-        //     vpcName: "evaluate-vpc",
-        //     enableDnsHostnames: true,
-        //     enableDnsSupport: true,
-        //     natGateways: 0,
-        //     subnetConfiguration: [
-        //         {
-        //             name: "evaluate-rds-public1a",
-        //             subnetType: ec2.SubnetType.PUBLIC,
-        //             cidrMask: 24,
-        //         },
-        //     ],
-        //     maxAzs: 2,
-        // })
+        const vpc = new ec2.Vpc(this, "evaluate_vpc", {
+            ipAddresses: ec2.IpAddresses.cidr("10.0.0.0/16"),
+            vpcName: "evaluate-vpc",
+            enableDnsHostnames: true,
+            enableDnsSupport: true,
+            natGateways: 0,
+            subnetConfiguration: [
+                {
+                    name: "evaluate-rds-public1a",
+                    subnetType: ec2.SubnetType.PUBLIC,
+                    cidrMask: 24,
+                },
+            ],
+            maxAzs: 2,
+        })
 
-        // const subnetGroup = new rds.SubnetGroup(this, "evaluate_rds-subG", {
-        //     description: "subnet group for evaluate-rds",
-        //     vpc,
-        //     removalPolicy: RemovalPolicy.DESTROY,
-        //     subnetGroupName: "evaluate-rds-sg",
-        //     vpcSubnets: {
-        //         availabilityZones: ["us-east-1a", "us-east-1b"],
-        //         subnets: vpc.publicSubnets,
-        //     },
-        // })
+        const subnetGroup = new rds.SubnetGroup(this, "evaluate_rds-subG", {
+            description: "subnet group for evaluate-rds",
+            vpc,
+            removalPolicy: RemovalPolicy.DESTROY,
+            subnetGroupName: "evaluate-rds-sg",
+            vpcSubnets: {
+                availabilityZones: ["us-east-1a", "us-east-1b"],
+                subnets: vpc.publicSubnets,
+            },
+        })
 
-        // const evaluateSG = new ec2.SecurityGroup(this, "evaluate_rds-secG", {
-        //     vpc,
-        //     allowAllOutbound: true,
-        //     description: "evaluate-vpc-secG",
-        // })
+        const evaluateSG = new ec2.SecurityGroup(this, "evaluate_rds-secG", {
+            vpc,
+            allowAllOutbound: true,
+            description: "evaluate-vpc-secG",
+        })
 
-        // evaluateSG.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.allTraffic())
+        evaluateSG.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.allTraffic())
 
-        // const instance = new rds.DatabaseInstance(this, "evaluate_database", {
-        //     vpc,
-        //     engine: rds.DatabaseInstanceEngine.mysql({
-        //         version: rds.MysqlEngineVersion.VER_8_0_28,
-        //     }),
-        //     credentials: {
-        //         username: "admin",
-        //         password: SecretValue.ssmSecure("evaluate-rds-password"),
-        //     },
-        //     databaseName: "evaluate",
-        //     instanceIdentifier: "db-evaluate",
-        //     publiclyAccessible: true,
-        //     subnetGroup,
-        //     removalPolicy: RemovalPolicy.DESTROY,
-        //     instanceType: ec2.InstanceType.of(
-        //         ec2.InstanceClass.T2,
-        //         ec2.InstanceSize.MICRO
-        //     ),
-        //     securityGroups: [evaluateSG],
-        // })
+        const instance = new rds.DatabaseInstance(this, "evaluate_database", {
+            vpc,
+            engine: rds.DatabaseInstanceEngine.mysql({
+                version: rds.MysqlEngineVersion.VER_8_0_28,
+            }),
+            credentials: {
+                username: "admin",
+                password: SecretValue.ssmSecure("evaluate-rds-password"),
+            },
+            databaseName: "evaluate",
+            instanceIdentifier: "db-evaluate",
+            publiclyAccessible: true,
+            subnetGroup,
+            removalPolicy: RemovalPolicy.DESTROY,
+            instanceType: ec2.InstanceType.of(
+                ec2.InstanceClass.T2,
+                ec2.InstanceSize.MICRO
+            ),
+            securityGroups: [evaluateSG],
+        })
 
         const custom_docker_runtime = new lambda.DockerImageFunction(
             this,
