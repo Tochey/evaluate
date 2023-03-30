@@ -1,4 +1,4 @@
-import CodeUi from "@components/codeMirror"
+import IDE from "@components/codeMirror"
 import api from "@lib/api"
 import { getUser } from "@lib/AuthContext"
 import { requireStudentAuthentication } from "@lib/requireAuthentication"
@@ -19,27 +19,15 @@ export default function StudentActivity({
     } = activities
 
     return (
-        <div className='flex justify-center'>
-            <div className='App'>
-                <h1 className='text-xl text-white'>
-                    Welcome this is a coding activity in{" "}
-                    <span className='font-bold text-secondary'>{language}</span>
-                </h1>
-                <p className='text-xl text-white'>
-                    The questions is :{" "}
-                    <span className='text-2xl font-bold text-secondary'>
-                        {question}
-                    </span>
-                </p>
-            </div>
-            <CodeUi
-                language={language}
-                codingActivityId={codingactivityId}
-                testCases={testCases}
-                sid={sid}
-                question={question}
-            />
-        </div>
+        <IDE
+        language={language}
+        codingActivityId={codingactivityId}
+        testCases={testCases}
+        sid={sid}
+        question={question}
+        numofattempts={numofattempts}
+    />
+       
     )
 }
 

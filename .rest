@@ -1,4 +1,4 @@
-@hostname = http://localhost:3000
+@hostname = https://main.d34qxtpa1jstt.amplifyapp.com 
 # https://main.d34qxtpa1jstt.amplifyapp.com 
 
 # http://localhost:3000/
