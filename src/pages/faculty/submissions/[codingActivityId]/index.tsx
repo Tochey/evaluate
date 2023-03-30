@@ -59,7 +59,6 @@ export const getServerSideProps = requireFacultyAuthentication(
             `/api/ops/activity/read/submissions/${codingActivityId}`
         )
         const { submissions } = data
-        console.log(submissions)
         return {
             props: {
                 studentSubmissions: submissions,

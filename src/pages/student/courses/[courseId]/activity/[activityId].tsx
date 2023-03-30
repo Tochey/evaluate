@@ -20,14 +20,13 @@ export default function StudentActivity({
 
     return (
         <IDE
-        language={language}
-        codingActivityId={codingactivityId}
-        testCases={testCases}
-        sid={sid}
-        question={question}
-        numofattempts={numofattempts}
-    />
-       
+            language={language}
+            codingActivityId={codingactivityId}
+            testCases={testCases}
+            sid={sid}
+            question={question}
+            numofattempts={numofattempts}
+        />
     )
 }
 

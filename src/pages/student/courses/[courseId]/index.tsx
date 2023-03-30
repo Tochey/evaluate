@@ -25,10 +25,7 @@ export default function Index({ courseInfo, submissions }: IProps) {
         activities,
     } = courseInfo
 
-    const codingActivityIds: string[] = []
-    submissions.map((e) => {
-        codingActivityIds.push(e.codingActivityId)
-    })
+    const codingActivityIds: Object[] = []
 
     if (activities.length === 0) {
         return (
@@ -40,20 +37,29 @@ export default function Index({ courseInfo, submissions }: IProps) {
     return (
         <div className='flex flex-col items-center gap-10 md:flex-row'>
             {activities.map((e, index: number) => {
+                const matchingSubmission = submissions.find(
+                    (s) =>
+                        s.codingActivityId === e.codingActivity.codingactivityId
+                )
+
+                const numAttemptsLeft = matchingSubmission
+                    ? e.numofattempts - matchingSubmission.numofattempts
+                    : e.numofattempts
+
                 if (
-                    codingActivityIds.includes(
-                        e.codingActivity.codingactivityId
-                    )
+                    matchingSubmission &&
+                    matchingSubmission.numofattempts === e.numofattempts
                 ) {
                     return (
                         <StudentActivities
                             topic={e.topic}
                             points={e.points}
-                            numofattempts={e.numofattempts}
+                            numofattempts={numAttemptsLeft}
                             isAvailable={false}
                             availableto={e.availableto}
                             activityId={e.activityId}
                             key={index}
+                            score={matchingSubmission.score}
                         />
                     )
                 } else {
@@ -61,11 +67,14 @@ export default function Index({ courseInfo, submissions }: IProps) {
                         <StudentActivities
                             topic={e.topic}
                             points={e.points}
-                            numofattempts={e.numofattempts}
+                            numofattempts={numAttemptsLeft}
                             isAvailable={true}
                             availableto={e.availableto}
                             activityId={e.activityId}
                             key={index}
+                            score={
+                                matchingSubmission && matchingSubmission.score
+                            }
                         />
                     )
                 }

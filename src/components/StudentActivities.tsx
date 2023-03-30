@@ -4,6 +4,7 @@ import moment from "moment"
 
 type IProps = Omit<Activity, "courseId" | "availablefrom"> & {
     isAvailable: boolean
+    score?: string
 }
 type CourseMouseEventHandler = (
     event: React.MouseEvent<HTMLButtonElement>,
@@ -16,6 +17,7 @@ export default function StudentActivities({
     isAvailable,
     availableto,
     activityId,
+    score,
 }: IProps) {
     const router = useRouter()
 
@@ -31,7 +33,7 @@ export default function StudentActivities({
                 <p className='text-base text-secondary'>
                     Points:{" "}
                     <span className='font-bold text-white'>{points}</span> |
-                    Attempts:{" "}
+                    Attempts Remaining :{" "}
                     <span className='font-bold text-white'>
                         {numofattempts}
                     </span>{" "}
@@ -40,6 +42,12 @@ export default function StudentActivities({
                         {dueDate.format("dddd, MMMM Do YYYY, h:mm:ss a")}
                     </span>
                 </p>
+                {score && (
+                    <p className='font-bold text-green-500'>
+                        {" "}
+                        Prev Score : {score}
+                    </p>
+                )}
             </div>
             <div className='px-6 py-4'>
                 <button

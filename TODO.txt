@@ -1,10 +1,6 @@
 Always check this before you start work on the repo.
 PRIORITY RANKS FROM TOP.
 
-Hero :
-*(working on) Online web editor implementation. Look into libraries like code mirror (https://codemirror.net/try/) - done
-* login page v1
-
 Tochi: 
 * clean up/validate auth flow --done
 * Write rce algorithm and routes --done
@@ -42,4 +38,10 @@ making custom code mirror theme : https://uiwjs.github.io/react-codemirror/#/the
 NOTE: 
 removed script "prepare": "husky install" from package.json, it was failing the amplify build.
 
-- new edittor experience
+- new editor experience
+- multiple activity attempts
+- Display last activity score 
+- collecting data metrics
+- attempt score
+- attempt time stamp
+- attempt Count

@@ -6,7 +6,6 @@ import axios from "axios"
 import moment from "moment"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import { GoPrimitiveDot } from "react-icons/go"
 interface IProps {
     testCases: string
     language: string
@@ -32,6 +31,40 @@ export default function CodeUi({
     const [output, setOutput] = useState("")
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const [timeOnPage, setTimeOnPage] = useState(0)
+
+    useEffect(() => {
+        const curr = localStorage.getItem("timeSpent-" + codingActivityId)
+
+        let timer: any
+        if (curr != null) {
+            setTimeOnPage(parseInt(curr))
+            timer = setInterval(() => {
+                setTimeOnPage((prev) => {
+                    const newTime = prev + 1
+                    localStorage.setItem(
+                        "timeSpent-" + codingActivityId,
+                        newTime.toString()
+                    )
+                    return newTime
+                })
+            }, 1000)
+        } else {
+            timer = setInterval(() => {
+                setTimeOnPage((prev) => {
+                    const newTime = prev + 1
+                    localStorage.setItem(
+                        "timeSpent-" + codingActivityId,
+                        newTime.toString()
+                    )
+                    return newTime
+                })
+            }, 1000)
+        }
+
+        return () => clearInterval(timer)
+    }, [])
+
     const RunButton = ({ state, func }: IButtonProps) => {
         return (
             <div className=''>
@@ -69,7 +102,35 @@ export default function CodeUi({
             testCases: testCases,
         }
         try {
+            //key: codingActivityId + *
+            //rc -> run count
+            //ts -> time stamp
+            //timeSpent -> time spent on the activity
+
             setIsLoading(true)
+            const activityData = localStorage.getItem(
+                "data-" + codingActivityId
+            )
+            if (activityData != null) {
+                const tmp = JSON.parse(activityData)
+
+                localStorage.setItem(
+                    "data-" + codingActivityId,
+                    JSON.stringify({
+                        runCount: parseInt(tmp.runCount) + 1,
+                        runTimeStamp: moment().format("YYYY-MM-DD HH:mm:ss"),
+                    })
+                )
+            } else {
+                localStorage.setItem(
+                    "data-" + codingActivityId,
+                    JSON.stringify({
+                        runCount: 1,
+                        runTimeStamp: moment().format("YYYY-MM-DD HH:mm:ss"),
+                        submitTimeStamp: "",
+                    })
+                )
+            }
             setOutput("")
             await axios
                 .post(
@@ -101,6 +162,29 @@ export default function CodeUi({
             return
         }
 
+        const activityData = localStorage.getItem("data-" + codingActivityId)
+
+        if (activityData != null) {
+            const tmp = JSON.parse(activityData)
+            localStorage.setItem(
+                "data-" + codingActivityId,
+                JSON.stringify({
+                    runCount: parseInt(tmp.runCount),
+                    runTimeStamp: tmp.runTimeStamp,
+                    submitTimeStamp: moment().format("YYYY-MM-DD HH:mm:ss"),
+                })
+            )
+        } else {
+            localStorage.setItem(
+                "data-" + codingActivityId,
+                JSON.stringify({
+                    runCount: 0,
+                    runTimeStamp: "",
+                    submitTimeStamp: moment().format("YYYY-MM-DD HH:mm:ss"),
+                })
+            )
+        }
+
         try {
             setIsLoading(true)
             setOutput("")
@@ -116,6 +200,28 @@ export default function CodeUi({
 
                     if (Number.isNaN(result)) {
                         result = 0
+                    }
+
+                    const attemptScore = localStorage.getItem(
+                        "attempt-" + codingActivityId
+                    )
+                    if (attemptScore != null) {
+                        const tmp = JSON.parse(attemptScore)
+                        localStorage.setItem(
+                            "attempt-" + codingActivityId,
+                            JSON.stringify({
+                                attemptCount: parseInt(tmp.attemptCount) + 1,
+                                attemptScore: result,
+                            })
+                        )
+                    } else {
+                        localStorage.setItem(
+                            "attempt-" + codingActivityId,
+                            JSON.stringify({
+                                attemptCount: 1,
+                                attemptScore: result,
+                            })
+                        )
                     }
 
                     const post_data = {
@@ -166,13 +272,6 @@ export default function CodeUi({
                             {language}
                         </span>
                     </h1>
-                    <p className='text-lg text-white'>
-                        You have{" "}
-                        <span className='text-lg font-bold text-secondary'>
-                            {numofattempts}
-                        </span>{" "}
-                        attempt/s remaining
-                    </p>
                     <p className='text-lg text-white'>
                         Q:{" "}
                         <span className='text-lg font-bold text-secondary'>

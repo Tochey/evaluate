@@ -14,6 +14,7 @@ export default async function createActivity(
         language,
         question,
         learningObjectives,
+        numofattempts,
     } = req.body
 
     return prismaErrorWrapper(res, async () => {
@@ -26,6 +27,7 @@ export default async function createActivity(
                         courseId: courseId, //replace with courseId
                     },
                 },
+                numofattempts: Number(numofattempts),
                 learningObjectives: {
                     create: {
                         description: learningObjectives,

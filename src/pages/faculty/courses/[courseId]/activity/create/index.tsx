@@ -28,6 +28,7 @@ export default function CreateActivity({ courseId }: IProps) {
         availableto: "",
         language: "JAVA",
         courseId: courseId,
+        numofattempts: "",
     })
     const handleCreateActivityChange: (
         event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -43,7 +44,8 @@ export default function CreateActivity({ courseId }: IProps) {
             data.question === "" ||
             data.testCases === "" ||
             data.learningObjectives === "" ||
-            data.availableto === ""
+            data.availableto === "" ||
+            isNaN(parseInt(data.numofattempts))
         ) {
             alert("Please fill in ALL fields")
             return
@@ -76,6 +78,25 @@ export default function CreateActivity({ courseId }: IProps) {
                     />
                     <p className='text-xs font-bold italic text-secondary'>
                         Please fill ALL fields.
+                    </p>
+                </div>
+            </div>
+            <div className='-mx-3 mb-6 flex flex-wrap'>
+                <div className='mb-6 w-full px-3 md:mb-0 md:w-1/2'>
+                    <label
+                        className='mb-2 block text-xs font-bold uppercase tracking-wide text-secondary'
+                        htmlFor='numofattempts'>
+                        # Of Attempts
+                    </label>
+                    <input
+                        className='mb-3 block w-full appearance-none rounded border bg-gray-200 py-3 px-4 leading-tight text-gray-700 focus:bg-white focus:outline-none'
+                        id='coursename'
+                        type='text'
+                        name='numofattempts'
+                        onChange={handleCreateActivityChange}
+                    />
+                    <p className='text-xs font-bold italic text-secondary'>
+                        MUST BE A NUMBER
                     </p>
                 </div>
             </div>

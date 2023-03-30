@@ -70,7 +70,7 @@ model Activity {
   points             Int                 @default(10)
   numofattempts      Int                 @default(1)
   availablefrom      DateTime            @default(now())
-  availableto        String             // we send due date to backend as string
+  availableto        String // we send due date to backend as string
   course             Course              @relation(fields: [courseId], references: [courseId], onDelete: Cascade)
   courseId           String
   learningObjectives LearningObjective[]
@@ -86,12 +86,12 @@ model CodingActivity {
   submissions      Submission[]
   actitvity        Activity            @relation(fields: [activityId], references: [activityId], onDelete: Cascade)
   activityId       String              @unique
-  testCases     String              @db.LongText
+  testCases        String              @db.LongText
 }
 
 model Submission {
   submissionId             String                @id @default(uuid())
-  submittedAt              String             
+  submittedAt              String
   score                    String                @db.LongText
   isLate                   Boolean?              @default(false)
   student                  Student               @relation(fields: [studentid], references: [sid], onDelete: Cascade)
@@ -100,6 +100,7 @@ model Submission {
   codingActitvySubmissions CodingActivity        @relation(fields: [codingActivityId], references: [codingactivityId], onDelete: Cascade)
   codingActivityId         String
   CodingActivityMetric     CodingActivityMetric?
+  numofattempts            Int                   @default(1)
 
   @@index([submissionId])
 }
@@ -108,7 +109,8 @@ model CodingActivityMetric {
   activityMetricId String     @id @default(uuid())
   timeSpent        Int
   runCount         Int
-  //timen between run and submit
+  runTimeStamp     String
+  submitTimeStamp  String
   submission       Submission @relation(fields: [submissionId], references: [submissionId])
   submissionId     String     @unique
 }
